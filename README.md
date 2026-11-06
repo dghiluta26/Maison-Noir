@@ -123,6 +123,110 @@ Main product categories:
 
 ---
 
+## Repository Structure
+
+```text
+maison-noir/
+├── backend/             # Django + Django REST Framework API
+├── frontend/            # React + TypeScript storefront (Vite)
+├── docs/
+│   ├── api/             # API contract and JSON examples
+│   ├── diagrams/        # ERD and architecture diagrams
+│   └── p2/              # Presentation 2 specification and decisions
+├── docker-compose.yml   # Local PostgreSQL service
+├── .env.example         # Template for local environment variables
+└── README.md
+```
+
+---
+
+## Local Setup
+
+### Prerequisites
+
+- Git
+- Docker Desktop (with Docker Compose v2)
+- Python 3.12+
+- Node.js 20+ (for the frontend)
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd Maison-Noir
+```
+
+### 2. Create your local environment file
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and set your own local values (at minimum `POSTGRES_PASSWORD` and `DJANGO_SECRET_KEY`). The `.env` file is ignored by Git and must never be committed.
+
+### 3. Start PostgreSQL
+
+```bash
+docker compose up -d db
+docker compose ps        # STATUS should show "healthy"
+```
+
+Useful commands:
+
+```bash
+docker compose logs -f db      # follow database logs
+docker compose down            # stop the database (data is kept)
+docker compose down -v         # stop and DELETE all local database data
+```
+
+### 4. Backend (Django + DRF)
+
+Create a virtual environment and install the dependencies:
+
+```powershell
+# Windows (PowerShell)
+cd backend
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements-dev.txt
+```
+
+```bash
+# macOS / Linux
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+```
+
+With PostgreSQL running (step 3), start the API:
+
+```bash
+python manage.py runserver
+```
+
+Check that it works by opening http://localhost:8000/api/health/. Expected response:
+
+```json
+{"status": "ok", "database": "ok"}
+```
+
+If PostgreSQL is not reachable, the endpoint returns HTTP `503` with `{"status": "error", "database": "unavailable"}`.
+
+Run the backend tests (from `backend/`, with the virtual environment active and PostgreSQL running):
+
+```bash
+pytest
+```
+
+> Database migrations are introduced together with the custom user model in a later step. Until then, `runserver` shows an "unapplied migrations" warning. This is expected; do **not** run `migrate` yet.
+
+### 5. Frontend
+
+Frontend (React) setup instructions will be added in a later step.
+
+---
+
 ## Authors
 
 **Alexia Dinca**  
