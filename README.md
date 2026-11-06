@@ -123,6 +123,68 @@ Main product categories:
 
 ---
 
+## Repository Structure
+
+```text
+maison-noir/
+├── backend/             # Django + Django REST Framework API
+├── frontend/            # React + TypeScript storefront (Vite)
+├── docs/
+│   ├── api/             # API contract and JSON examples
+│   ├── diagrams/        # ERD and architecture diagrams
+│   └── p2/              # Presentation 2 specification and decisions
+├── docker-compose.yml   # Local PostgreSQL service
+├── .env.example         # Template for local environment variables
+└── README.md
+```
+
+---
+
+## Local Setup
+
+### Prerequisites
+
+- Git
+- Docker Desktop (with Docker Compose v2)
+- Python 3.12+
+- Node.js 20+ (for the frontend)
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd Maison-Noir
+```
+
+### 2. Create your local environment file
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and set your own local values (at minimum `POSTGRES_PASSWORD` and `DJANGO_SECRET_KEY`). The `.env` file is ignored by Git and must never be committed.
+
+### 3. Start PostgreSQL
+
+```bash
+docker compose up -d db
+docker compose ps        # STATUS should show "healthy"
+```
+
+Useful commands:
+
+```bash
+docker compose logs -f db      # follow database logs
+docker compose down            # stop the database (data is kept)
+docker compose down -v         # stop and DELETE all local database data
+```
+
+### 4. Backend and frontend
+
+Backend (Django) and frontend (React) setup instructions will be added in the next steps of the P2 plan.
+
+---
+
 ## Authors
 
 **Alexia Dinca**  
