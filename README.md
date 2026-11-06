@@ -179,9 +179,51 @@ docker compose down            # stop the database (data is kept)
 docker compose down -v         # stop and DELETE all local database data
 ```
 
-### 4. Backend and frontend
+### 4. Backend (Django + DRF)
 
-Backend (Django) and frontend (React) setup instructions will be added in the next steps of the P2 plan.
+Create a virtual environment and install the dependencies:
+
+```powershell
+# Windows (PowerShell)
+cd backend
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements-dev.txt
+```
+
+```bash
+# macOS / Linux
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+```
+
+With PostgreSQL running (step 3), start the API:
+
+```bash
+python manage.py runserver
+```
+
+Check that it works by opening http://localhost:8000/api/health/. Expected response:
+
+```json
+{"status": "ok", "database": "ok"}
+```
+
+If PostgreSQL is not reachable, the endpoint returns HTTP `503` with `{"status": "error", "database": "unavailable"}`.
+
+Run the backend tests (from `backend/`, with the virtual environment active and PostgreSQL running):
+
+```bash
+pytest
+```
+
+> Database migrations are introduced together with the custom user model in a later step. Until then, `runserver` shows an "unapplied migrations" warning. This is expected; do **not** run `migrate` yet.
+
+### 5. Frontend
+
+Frontend (React) setup instructions will be added in a later step.
 
 ---
 
