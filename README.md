@@ -221,9 +221,45 @@ pytest
 
 > Database migrations are introduced together with the custom user model in a later step. Until then, `runserver` shows an "unapplied migrations" warning. This is expected; do **not** run `migrate` yet.
 
-### 5. Frontend
+### 5. Frontend (React + TypeScript + Vite)
 
-Frontend (React) setup instructions will be added in a later step.
+The frontend reads `VITE_API_BASE_URL` from the same root `.env` file created in step 2. Only variables prefixed with `VITE_` are exposed to the browser.
+
+Install the dependencies and start the development server:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open http://localhost:5173. The port is fixed to `5173` because it must match `CORS_ALLOWED_ORIGINS` in `.env`.
+
+Other commands (run from `frontend/`):
+
+```bash
+npm run build     # type-check (tsc) and build the production bundle into frontend/dist
+npm run preview   # serve the production build locally
+npm run lint      # lint the source code with oxlint
+```
+
+Frontend structure:
+
+```text
+frontend/src/
+├── components/   # layout (Header, Footer), catalog (ProductCard, grid) and ui building blocks
+├── pages/        # one component per route
+├── services/     # the only layer that fetches data (catalogue service, API errors)
+├── hooks/        # reusable React hooks (e.g. useAsync for loading/error states)
+├── types/        # TypeScript interfaces mirroring the REST API responses
+├── styles/       # Tailwind CSS entry point and MAISON NOIR design tokens
+├── utils/        # formatting helpers (prices)
+├── mocks/        # TEMPORARY mock catalogue, removed when the live API is connected
+├── router.tsx    # route definitions
+└── main.tsx      # application entry point
+```
+
+> Until the catalogue API is available, the storefront uses temporary mock data from `src/mocks/catalog.ts` through `src/services/catalogService.ts`. Pages never import mock data directly.
 
 ---
 
