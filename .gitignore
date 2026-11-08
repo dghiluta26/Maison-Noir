@@ -1,6 +1,10 @@
 # Local planning documents (not shared in the repository)
 P2_Implementation_Execution_Plan.md
 
+# Local database diagram images (not shared in the repository)
+/Project1_Modelul_E-R_MAISON_NOIR.png
+/ER_diagram_Maison Noir.png
+
 # Environment and secrets
 .env
 .env.*
