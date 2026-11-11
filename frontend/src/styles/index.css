@@ -1,0 +1,110 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/cormorant-garamond';
+@import '@fontsource-variable/manrope';
+
+/*
+ * MAISON NOIR design tokens
+ * -------------------------
+ * Every value below becomes a Tailwind utility, e.g.
+ *   --color-burgundy      -> bg-burgundy, text-burgundy, border-burgundy
+ *   --font-serif          -> font-serif
+ * Change the brand here only; components must not hard-code hex values.
+ */
+@theme {
+  /* Brand palette — Brand & P1 Project Book, "Visual system". Do not add other hues. */
+  --color-ivory: #f7f4ef;
+  --color-espresso: #2a211e;
+  --color-burgundy: #641f32;
+  --color-champagne: #c5a77b;
+  --color-taupe: #b8a99a; /* Warm Taupe */
+
+  /* Supporting tones — mixed ONLY from the brand palette above */
+  --color-cream: color-mix(in srgb, var(--color-champagne) 24%, var(--color-ivory)); /* warm page background */
+  --color-ivory-deep: color-mix(in srgb, var(--color-taupe) 45%, var(--color-ivory)); /* placeholders, skeletons */
+  --color-sand: color-mix(in srgb, var(--color-taupe) 62%, var(--color-ivory)); /* darker contrasting bands */
+  --color-espresso-soft: color-mix(in srgb, var(--color-espresso) 80%, var(--color-ivory)); /* secondary text, WCAG AA on ivory */
+  --color-line: color-mix(in srgb, var(--color-taupe) 50%, var(--color-ivory)); /* hairline borders and dividers */
+
+  /* Typography */
+  --font-serif: 'Cormorant Garamond Variable', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Manrope Variable', 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --tracking-brand: 0.32em; /* logo and small uppercase labels */
+
+  /* Layout */
+  --container-page: 80rem; /* max content width, used as max-w-page */
+
+  /* Motion — homepage hero (used with motion-safe: so reduced-motion users see no animation) */
+  --animate-slide-in-right: slide-in-right 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-up: fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      transform: translateY(1.5rem);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cream font-sans text-espresso antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-serif font-medium text-espresso;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-burgundy;
+  }
+
+  ::selection {
+    @apply bg-champagne/40;
+  }
+}
+
+/* Reusable brand utilities (usable as normal class names) */
+
+/* Centred page column with responsive side gutters */
+@utility page-container {
+  @apply mx-auto w-full max-w-page px-4 sm:px-6 lg:px-8;
+}
+
+/* Small uppercase label used for categories, eyebrows and nav */
+@utility eyebrow {
+  @apply text-xs font-semibold tracking-[0.18em] text-espresso-soft uppercase;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 px-7 py-3 text-sm font-semibold tracking-[0.14em] uppercase transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@utility btn-primary {
+  @apply btn bg-espresso text-ivory hover:bg-burgundy;
+}
+
+@utility btn-outline {
+  @apply btn border border-espresso text-espresso hover:bg-espresso hover:text-ivory;
+}
