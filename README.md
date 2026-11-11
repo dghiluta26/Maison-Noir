@@ -205,6 +205,14 @@ With PostgreSQL running (step 3), create the database tables:
 python manage.py migrate
 ```
 
+Load the catalogue (5 categories, 13 collections, 32 products):
+
+```bash
+python manage.py seed_catalogue
+```
+
+The command is safe to run repeatedly: it updates existing rows (matched by slug / SKU) instead of creating duplicates, and resets them to the seed values. The seed data lives in `backend/apps/catalog/seed_data.py`.
+
 Optionally, create an admin account for the Django admin at http://localhost:8000/admin/ (you will be asked for email, first name, last name and password):
 
 ```bash
