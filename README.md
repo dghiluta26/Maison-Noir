@@ -199,7 +199,21 @@ source .venv/bin/activate
 pip install -r requirements-dev.txt
 ```
 
-With PostgreSQL running (step 3), start the API:
+With PostgreSQL running (step 3), create the database tables:
+
+```bash
+python manage.py migrate
+```
+
+Optionally, create an admin account for the Django admin at http://localhost:8000/admin/ (you will be asked for email, first name, last name and password):
+
+```bash
+python manage.py createsuperuser
+```
+
+Users log in with their **email address**. Every account has a role: `customer` (default for new accounts) or `admin` (given automatically to superusers).
+
+Start the API:
 
 ```bash
 python manage.py runserver
@@ -219,7 +233,7 @@ Run the backend tests (from `backend/`, with the virtual environment active and 
 pytest
 ```
 
-> Database migrations are introduced together with the custom user model in a later step. Until then, `runserver` shows an "unapplied migrations" warning. This is expected; do **not** run `migrate` yet.
+> After pulling changes that include new migrations, run `python manage.py migrate` again.
 
 ### 5. Frontend (React + TypeScript + Vite)
 
