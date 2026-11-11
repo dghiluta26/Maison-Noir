@@ -19,7 +19,9 @@
   --color-taupe: #b8a99a; /* Warm Taupe */
 
   /* Supporting tones — mixed ONLY from the brand palette above */
-  --color-ivory-deep: color-mix(in srgb, var(--color-taupe) 18%, var(--color-ivory)); /* placeholders, subtle surfaces */
+  --color-cream: color-mix(in srgb, var(--color-champagne) 24%, var(--color-ivory)); /* warm page background */
+  --color-ivory-deep: color-mix(in srgb, var(--color-taupe) 45%, var(--color-ivory)); /* placeholders, skeletons */
+  --color-sand: color-mix(in srgb, var(--color-taupe) 62%, var(--color-ivory)); /* darker contrasting bands */
   --color-espresso-soft: color-mix(in srgb, var(--color-espresso) 80%, var(--color-ivory)); /* secondary text, WCAG AA on ivory */
   --color-line: color-mix(in srgb, var(--color-taupe) 50%, var(--color-ivory)); /* hairline borders and dividers */
 
@@ -31,6 +33,32 @@
 
   /* Layout */
   --container-page: 80rem; /* max content width, used as max-w-page */
+
+  /* Motion — homepage hero (used with motion-safe: so reduced-motion users see no animation) */
+  --animate-slide-in-right: slide-in-right 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-up: fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      transform: translateY(1.5rem);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 }
 
 @layer base {
@@ -39,7 +67,7 @@
   }
 
   body {
-    @apply bg-ivory font-sans text-espresso antialiased;
+    @apply bg-cream font-sans text-espresso antialiased;
   }
 
   h1,

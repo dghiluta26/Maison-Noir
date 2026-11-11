@@ -27,7 +27,7 @@ export function ProductImageFrame({ image, productName, className = '', eager = 
         <div
           role="img"
           aria-label={`${productName} — image coming soon`}
-          className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-b from-ivory-deep to-line/70"
+          className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-b from-ivory to-ivory-deep"
         >
           <span aria-hidden="true" className="font-serif text-5xl text-champagne">
             MN

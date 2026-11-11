@@ -4,7 +4,7 @@ const CURRENT_YEAR = new Date().getFullYear()
 
 export function Footer() {
   return (
-    <footer className="mt-24 bg-espresso text-ivory">
+    <footer className="bg-espresso text-ivory">
       <div className="page-container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
           <p className="font-serif text-2xl tracking-brand">MAISON NOIR</p>
