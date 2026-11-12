@@ -151,6 +151,15 @@ COLLECTIONS = [
         "description": (
             'Fig leaf, cedar and polished wood: the scent of a Parisian apartment.'
         ),
+        "tagline": 'Les fenêtres ouvertes',
+        "story": (
+            'On the rue de Tournon, the windows of a first-floor apartment stand open to the courtyard. '
+            'A fig branch brushes the sill. Inside, someone sharpens a cedar pencil at a writing desk, '
+            'then sweeps the shavings into one hand. The tabletop smells faintly of polish where the '
+            'morning sun has warmed it. L’Appartement brings those three scents together. Its candle and '
+            'diffuser are carved in honed travertine, with shallow flutes that catch the light like the '
+            'mouldings beside the window.'
+        ),
         "launch_year": 2026,
         "sort_order": 10,
     },
@@ -666,7 +675,19 @@ PRODUCTS = [
         "price": "310.00",
         "stock_quantity": 7,
         "description": (
-            'Fig leaf, cedar and polished wood — the scent of a Parisian apartment, as a scented candle.'
+            'A wooden wick crackles softly as green fig leaf gives way to cedar and the warmth of '
+            'polished wood. The low travertine vessel has a fluted lid with the house arch engraved on '
+            'its brass knob. Two turns of espresso silk hold a burgundy wax seal above the hand-numbered '
+            'cotton-paper label.'
+        ),
+        "tagline": 'Fig leaf by an open window.',
+        "size": '400 g',
+        "burn_time": 'Approximately 80 hours',
+        "notes_top": 'Fig leaf',
+        "notes_heart": 'Cedar',
+        "notes_base": 'Polished wood',
+        "ritual": (
+            'Lift the stone lid, unwind the silk cord and set the seal aside before lighting the wooden wick.'
         ),
     },
     {
@@ -678,7 +699,20 @@ PRODUCTS = [
         "price": "400.00",
         "stock_quantity": 6,
         "description": (
-            'A reed diffuser of fig leaf, cedar and polished wood.'
+            'Six dark rattan reeds carry the green scent of fig leaf through the room, with dry cedar and '
+            'polished wood beneath. Fine pores remain visible along the flutes of the rounded travertine '
+            'bottle. An espresso silk knot suspends a burgundy wax seal between the arch-engraved '
+            'champagne collar and the hand-numbered ivory label.'
+        ),
+        "tagline": 'Green fig for the entrance hall.',
+        "size": '200 ml',
+        "burn_time": 'Approximately three months',
+        "notes_top": 'Fig leaf',
+        "notes_heart": 'Cedar',
+        "notes_base": 'Polished wood',
+        "ritual": (
+            'Set the vessel on the entrance console and fan the reeds so the scent of fig leaf greets '
+            'you at the door.'
         ),
     },
     {
@@ -742,6 +776,7 @@ COLLECTION_IMAGES = {
     'paris-after-dark': 'collections/paris-after-dark.jpg',
     'soft-linen': 'collections/soft-linen.jpg',
     'ambre-parisien': 'collections/ambre-parisien.jpg',
+    'l-appartement': 'collections/l-appartement.jpg',
 }
 
 # product SKU -> images, the first one is the primary image
@@ -851,6 +886,24 @@ PRODUCT_IMAGES = {
             "alt_text": (
                 'Ambre Parisien reed diffuser: rounded fluted cognac glass bottle with six espresso reeds '
                 'and a champagne-gold collar'
+            ),
+        },
+    ],
+    'MN-LA-C': [
+        {
+            "file": 'products/l-appartement-scented-candle.jpg',
+            "alt_text": (
+                'L’Appartement scented candle: low fluted travertine vessel with a wooden wick, '
+                'its fluted lid with a brass knob leaning beside it'
+            ),
+        },
+    ],
+    'MN-LA-D': [
+        {
+            "file": 'products/l-appartement-reed-diffuser.jpg',
+            "alt_text": (
+                'L’Appartement reed diffuser: rounded fluted travertine bottle with dark rattan reeds '
+                'and a champagne collar'
             ),
         },
     ],

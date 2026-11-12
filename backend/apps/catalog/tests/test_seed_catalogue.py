@@ -144,6 +144,16 @@ def test_seed_editorial_texts():
         )
         assert product.primary_image is not None
 
+    appartement = Collection.objects.get(slug="l-appartement")
+    assert appartement.tagline == "Les fenêtres ouvertes"
+    assert appartement.image.name == "collections/l-appartement.jpg"
+    for sku in ("MN-LA-C", "MN-LA-D"):
+        product = Product.objects.get(sku=sku)
+        assert (product.notes_top, product.notes_heart, product.notes_base) == (
+            "Fig leaf", "Cedar", "Polished wood",
+        )
+        assert product.primary_image is not None
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()
