@@ -68,6 +68,9 @@ class Collection(SlugFromNameMixin, TimeStampedModel):
         max_length=200, blank=True, help_text='Collection page subtitle, e.g. "Minuit, rue du Bac".'
     )
     story = models.TextField(blank=True, help_text="Long text shown on the collection page.")
+    image = models.ImageField(
+        upload_to="collections/", blank=True, help_text="Hero picture of the collection page."
+    )
     launch_year = models.PositiveSmallIntegerField(
         null=True,
         blank=True,

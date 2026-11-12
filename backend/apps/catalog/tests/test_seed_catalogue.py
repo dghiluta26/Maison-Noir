@@ -84,3 +84,27 @@ def test_products_per_category():
         "design-objects": 3,
         "limited-gift-sets": 2,
     }
+
+
+def test_seed_images_are_copied_and_linked(temporary_media):
+    run_seed()
+
+    collection = Collection.objects.get(slug="midnight-in-paris")
+    assert collection.image.name == "collections/midnight-in-paris.jpg"
+    assert (temporary_media / "collections" / "midnight-in-paris.jpg").is_file()
+
+    product = Product.objects.get(sku="MN-MP-P")
+    image = product.primary_image
+    assert image.image.name == "products/midnight-in-paris-eau-de-parfum.jpg"
+    assert image.alt_text.startswith("Midnight in Paris")
+    assert (temporary_media / "products" / "midnight-in-paris-eau-de-parfum.jpg").is_file()
+
+
+def test_seed_images_are_not_duplicated_on_rerun():
+    run_seed()
+    run_seed()
+
+    for sku, images in seed_data.PRODUCT_IMAGES.items():
+        product = Product.objects.get(sku=sku)
+        assert product.images.count() == len(images)
+        assert product.images.filter(is_primary=True).count() == 1

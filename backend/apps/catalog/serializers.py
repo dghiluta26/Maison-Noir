@@ -29,9 +29,12 @@ class CollectionSerializer(serializers.ModelSerializer):
 
 
 class CollectionListSerializer(serializers.ModelSerializer):
+    # Absolute URL, or null when the collection has no picture.
+    image = serializers.ImageField(read_only=True)
+
     class Meta:
         model = Collection
-        fields = ["id", "name", "slug", "description", "tagline", "story", "launch_year"]
+        fields = ["id", "name", "slug", "description", "tagline", "story", "image", "launch_year"]
 
 
 class ProductImageSerializer(serializers.ModelSerializer):

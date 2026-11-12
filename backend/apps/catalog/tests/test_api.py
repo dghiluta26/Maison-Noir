@@ -193,4 +193,4 @@ def test_collection_list(api):
 
     assert len(body) == 13
     assert body[0]["slug"] == "after-hours"
-    assert set(body[0]) == {"id", "name", "slug", "description", "tagline", "story", "launch_year"}
+    assert set(body[0]) == {"id", "name", "slug", "description", "tagline", "story", "image", "launch_year"}
