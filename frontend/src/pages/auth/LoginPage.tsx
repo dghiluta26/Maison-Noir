@@ -5,6 +5,7 @@ import { FormField } from '../../components/ui/FormField'
 import { useAuth } from '../../hooks/useAuth'
 import {
   hasErrors,
+  redirectTarget,
   toFormFeedback,
   validateLogin,
   type FormErrors,
@@ -16,8 +17,7 @@ type Field = keyof LoginFormValues
 export function LoginPage() {
   const { status, login } = useAuth()
   // After signing in, return to the page that sent the visitor here (else home).
-  const state = useLocation().state as { from?: string } | null
-  const redirectTo = state?.from ?? '/'
+  const redirectTo = redirectTarget(useLocation().state)
 
   const [values, setValues] = useState<LoginFormValues>({ email: '', password: '' })
   const [errors, setErrors] = useState<FormErrors<Field>>({})

@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuth'
 import {
   hasErrors,
   PASSWORD_MIN_LENGTH,
+  redirectTarget,
   toFormFeedback,
   validateRegister,
   type FormErrors,
@@ -25,8 +26,7 @@ const EMPTY_FORM: RegisterFormValues = {
 
 export function RegisterPage() {
   const { status, register } = useAuth()
-  const state = useLocation().state as { from?: string } | null
-  const redirectTo = state?.from ?? '/'
+  const redirectTo = redirectTarget(useLocation().state)
 
   const [values, setValues] = useState<RegisterFormValues>(EMPTY_FORM)
   const [errors, setErrors] = useState<FormErrors<Field>>({})
