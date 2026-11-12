@@ -63,7 +63,11 @@ class Collection(SlugFromNameMixin, TimeStampedModel):
 
     name = models.CharField(max_length=150, unique=True)
     slug = models.SlugField(max_length=170, unique=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, help_text="Short summary (one sentence).")
+    tagline = models.CharField(
+        max_length=200, blank=True, help_text='Collection page subtitle, e.g. "Minuit, rue du Bac".'
+    )
+    story = models.TextField(blank=True, help_text="Long text shown on the collection page.")
     launch_year = models.PositiveSmallIntegerField(
         null=True,
         blank=True,
@@ -124,6 +128,23 @@ class Product(SlugFromNameMixin, TimeStampedModel):
     is_active = models.BooleanField(
         default=True, help_text="Inactive products are hidden from the storefront."
     )
+
+    # Optional product-page details (empty values are simply not shown).
+    tagline = models.CharField(
+        max_length=200, blank=True, help_text='One line under the name, e.g. "The last cup of black tea."'
+    )
+    size = models.CharField(max_length=50, blank=True, help_text='e.g. "100 ml" or "220 g".')
+    burn_time = models.CharField(
+        max_length=100, blank=True, help_text='Candles only, e.g. "Approximately 50 hours".'
+    )
+    notes_top = models.CharField("top notes", max_length=200, blank=True)
+    notes_heart = models.CharField("heart notes", max_length=200, blank=True)
+    notes_base = models.CharField("base notes", max_length=200, blank=True)
+    materials = models.TextField(blank=True)
+    edition = models.CharField(
+        max_length=100, blank=True, help_text='e.g. "Édition Limitée · N° 047 / 500".'
+    )
+    ritual = models.TextField(blank=True, help_text="How to use or enjoy the product.")
 
     objects = ProductQuerySet.as_manager()
 

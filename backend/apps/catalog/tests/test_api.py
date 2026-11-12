@@ -18,6 +18,11 @@ SUMMARY_FIELDS = {
     "id", "sku", "name", "slug", "price", "category", "collection",
     "primary_image", "in_stock", "stock_quantity",
 }
+# Optional product-page details, returned by the detail endpoint only.
+DETAIL_TEXT_FIELDS = {
+    "tagline", "size", "burn_time", "notes_top", "notes_heart", "notes_base",
+    "materials", "edition", "ritual",
+}
 
 
 @pytest.fixture(autouse=True)
@@ -127,7 +132,7 @@ def test_product_detail_by_slug(api):
 
     assert response.status_code == 200
     body = response.json()
-    assert set(body) == SUMMARY_FIELDS | {"description", "images"}
+    assert set(body) == SUMMARY_FIELDS | DETAIL_TEXT_FIELDS | {"description", "images"}
     assert body["sku"] == "MN-CC-G"
     assert body["price"] == "1590.00"
     assert body["description"].startswith("The complete Cafe Creme collection")
@@ -188,4 +193,4 @@ def test_collection_list(api):
 
     assert len(body) == 13
     assert body[0]["slug"] == "after-hours"
-    assert set(body[0]) == {"id", "name", "slug", "description", "launch_year"}
+    assert set(body[0]) == {"id", "name", "slug", "description", "tagline", "story", "launch_year"}

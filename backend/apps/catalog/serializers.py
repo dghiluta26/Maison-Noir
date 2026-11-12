@@ -31,7 +31,7 @@ class CollectionSerializer(serializers.ModelSerializer):
 class CollectionListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ["id", "name", "slug", "description", "launch_year"]
+        fields = ["id", "name", "slug", "description", "tagline", "story", "launch_year"]
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -79,7 +79,19 @@ class ProductDetailSerializer(ProductSummarySerializer):
     images = ProductImageSerializer(many=True, read_only=True)
 
     class Meta(ProductSummarySerializer.Meta):
-        fields = ProductSummarySerializer.Meta.fields + ["description", "images"]
+        fields = ProductSummarySerializer.Meta.fields + [
+            "description",
+            "tagline",
+            "size",
+            "burn_time",
+            "notes_top",
+            "notes_heart",
+            "notes_base",
+            "materials",
+            "edition",
+            "ritual",
+            "images",
+        ]
 
 
 class AdminProductSerializer(ProductDetailSerializer):
