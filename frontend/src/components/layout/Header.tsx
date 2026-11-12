@@ -1,4 +1,5 @@
 import { Link, NavLink, useLocation } from 'react-router'
+import { useAuth } from '../../hooks/useAuth'
 import { useScrolledPast } from '../../hooks/useScrolledPast'
 
 /** On the homepage the header appears after scrolling this many pixels. */
@@ -43,12 +44,41 @@ export function Header() {
           <NavLink to="/products" className={navLinkClass}>
             Shop
           </NavLink>
-          {/* Authenticated header states are added in task 3.2 / 3.4. */}
-          <NavLink to="/login" className={navLinkClass}>
-            Sign in
-          </NavLink>
+          <AccountNav />
         </nav>
       </div>
     </header>
+  )
+}
+
+/** Sign-in link for visitors; name and sign-out for logged-in users. */
+function AccountNav() {
+  const { status, user, logout } = useAuth()
+  const location = useLocation()
+
+  if (status === 'loading') {
+    // Reserve the space while the session is being restored, to avoid a flicker.
+    return <span aria-hidden="true" className="inline-block w-16" />
+  }
+
+  if (status === 'authenticated' && user) {
+    return (
+      <>
+        <span className="hidden text-xs font-semibold tracking-[0.18em] whitespace-nowrap text-champagne uppercase md:inline">
+          {user.first_name}
+          {user.role === 'admin' && <span className="ml-2 text-taupe">· Admin</span>}
+        </span>
+        <button type="button" onClick={() => void logout()} className={navLinkClass({ isActive: false })}>
+          Sign out
+        </button>
+      </>
+    )
+  }
+
+  return (
+    // Remember the current page so the visitor returns to it after signing in.
+    <NavLink to="/login" state={{ from: location.pathname }} className={navLinkClass}>
+      Sign in
+    </NavLink>
   )
 }
