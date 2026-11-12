@@ -6,14 +6,17 @@
  *   POST /api/auth/login/     -> 200 {access, user} + refresh cookie
  *   POST /api/auth/refresh/   -> 200 {access, user} + new (rotated) refresh cookie
  *   POST /api/auth/logout/    -> 204, cookie deleted
+ *   GET  /api/auth/me/        -> 200 user (needs the access token)
  *
  * The access token lives in memory only (never localStorage). The refresh token
- * is an httpOnly cookie the browser handles for us, so every call here uses
- * `withCredentials` (fetch `credentials: 'include'`).
+ * is an httpOnly cookie the browser handles for us, so every call to the auth
+ * entry points uses `withCredentials` (fetch `credentials: 'include'`).
+ * Endpoints that need a logged-in user are called through authRequest().
  * Failures are raised as ApiError (see ./errors).
  */
-import type { AuthResponse, LoginPayload, RegisterPayload } from '../types/auth'
-import { apiRequest } from './apiClient'
+import type { AuthResponse, LoginPayload, RegisterPayload, User } from '../types/auth'
+import { apiRequest, type RequestOptions } from './apiClient'
+import { isUnauthorized } from './errors'
 
 /** Access token, kept in memory only. Lost on page reload; restored by refresh(). */
 let accessToken: string | null = null
@@ -60,6 +63,54 @@ export function refresh(): Promise<AuthResponse> {
 export async function logout(): Promise<void> {
   accessToken = null
   await apiRequest<void>('/auth/logout/', { method: 'POST', withCredentials: true })
+}
+
+/** The logged-in user's profile. */
+export function getMe(): Promise<User> {
+  return authRequest<User>('/auth/me/')
+}
+
+// --- Authenticated requests ---------------------------------------------------
+
+type SessionExpiredListener = () => void
+
+const sessionExpiredListeners = new Set<SessionExpiredListener>()
+
+/**
+ * Registers a callback for when the session ends on its own (refresh token
+ * expired or revoked). Returns an unsubscribe function.
+ */
+export function onSessionExpired(listener: SessionExpiredListener): () => void {
+  sessionExpiredListeners.add(listener)
+  return () => {
+    sessionExpiredListeners.delete(listener)
+  }
+}
+
+/**
+ * Request to an endpoint that needs a logged-in user (contract: docs/api/auth.md).
+ * Sends the access token; on 401 (usually an expired access token) it calls
+ * refresh() ONCE and retries with the new token. If the refresh also fails with
+ * 401, the session is over: the token is cleared, listeners are notified and
+ * the 401 ApiError is raised. Other errors (403, network...) are raised as-is.
+ */
+export async function authRequest<T>(path: string, options: Omit<RequestOptions, 'token'> = {}): Promise<T> {
+  try {
+    return await apiRequest<T>(path, { ...options, token: accessToken })
+  } catch (error) {
+    if (!isUnauthorized(error)) throw error
+  }
+
+  try {
+    await refresh()
+  } catch (error) {
+    if (isUnauthorized(error)) {
+      sessionExpiredListeners.forEach((listener) => listener())
+    }
+    throw error
+  }
+
+  return apiRequest<T>(path, { ...options, token: accessToken })
 }
 
 /** Stores the access token from a successful response; clears it on failure. */
