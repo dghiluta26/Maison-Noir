@@ -186,6 +186,14 @@ COLLECTIONS = [
         "description": (
             'Green stems, peony and fresh air, presented as a Home Ritual Duo of scented candle and reed diffuser.'
         ),
+        "tagline": 'Les pivoines du dimanche',
+        "story": (
+            'On a Sunday in May, the peonies come home from the marché d’Aligre wrapped in brown paper. '
+            'At the kitchen sink, a pair of scissors cuts through the stems, releasing a sharp green scent '
+            'before the flowers have even reached the vase. By afternoon, the petals have loosened in the '
+            'air from the courtyard window. Fleur de Maison holds both moments together, with the '
+            'freshness of cut stems beneath the softer scent of an open peony.'
+        ),
         "launch_year": 2026,
         "sort_order": 12,
     },
@@ -778,7 +786,23 @@ PRODUCTS = [
         "price": "590.00",
         "stock_quantity": 6,
         "description": (
-            'A scented candle and reed diffuser of green stems, peony and fresh air, presented together as one home ritual.'
+            'Green stems give peony a crisp edge, softened by a fresh-air accord. The wooden-wick candle '
+            'and six-reed diffuser share a blush-taupe Rosa Portogallo marble tray. Champagne silk holds a '
+            'burgundy wax seal above each hand-numbered label. The house arch is engraved on the brass '
+            'knob of the candle’s matching marble lid.'
+        ),
+        "tagline": 'Peonies by an open window.',
+        "size": '400 g candle · 200 ml diffuser',
+        "burn_time": 'Approximately 80 hours of candlelight and three months of diffusion',
+        "includes": (
+            '400 g candle with marble lid · 200 ml diffuser with six rattan reeds · Matching marble tray'
+        ),
+        "notes_top": 'Fresh green stems',
+        "notes_heart": 'Peony',
+        "notes_base": 'Fresh-air accord',
+        "ritual": (
+            'Fan the reeds in the entrance hall, then slip the silk and seal from the candle and light its '
+            'wooden wick at the dining table.'
         ),
     },
     {
@@ -953,6 +977,15 @@ PRODUCT_IMAGES = {
             "alt_text": (
                 'Chambre Noire reed diffuser: rounded red Rosso Levanto marble bottle with six dark reeds '
                 'and a champagne collar'
+            ),
+        },
+    ],
+    'MN-FM-H': [
+        {
+            "file": 'products/fleur-de-maison-home-ritual-duo.jpg',
+            "alt_text": (
+                'Fleur de Maison Home Ritual Duo: blush pink Rosa Portogallo marble candle and reed '
+                'diffuser on a matching marble tray'
             ),
         },
     ],

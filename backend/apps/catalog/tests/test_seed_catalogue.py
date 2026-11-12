@@ -164,6 +164,12 @@ def test_seed_editorial_texts():
         )
         assert product.primary_image is not None
 
+    assert Collection.objects.get(slug="fleur-de-maison").tagline == "Les pivoines du dimanche"
+    fleur_duo = Product.objects.get(sku="MN-FM-H")
+    assert fleur_duo.notes_heart == "Peony"
+    assert fleur_duo.includes.endswith("Matching marble tray")
+    assert fleur_duo.primary_image.image.name == "products/fleur-de-maison-home-ritual-duo.jpg"
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()
