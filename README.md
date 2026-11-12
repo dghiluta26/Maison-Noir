@@ -276,12 +276,11 @@ frontend/src/
 ├── types/        # TypeScript interfaces mirroring the REST API responses
 ├── styles/       # Tailwind CSS entry point and MAISON NOIR design tokens
 ├── utils/        # formatting helpers (prices)
-├── mocks/        # TEMPORARY mock catalogue, removed when the live API is connected
 ├── router.tsx    # route definitions
 └── main.tsx      # application entry point
 ```
 
-> Until the catalogue API is available, the storefront uses temporary mock data from `src/mocks/catalog.ts` through `src/services/catalogService.ts`. Pages never import mock data directly.
+> Catalogue data is loaded from the Django REST API at `VITE_API_BASE_URL` (root `.env`) through `src/services/catalogService.ts`, which uses the shared request helper in `src/services/apiClient.ts`. Pages never call `fetch` directly. See `docs/api/catalogue.md` for the API contract.
 
 ---
 
