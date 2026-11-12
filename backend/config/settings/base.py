@@ -32,7 +32,12 @@ INSTALLED_APPS = [
     "corsheaders",
     # Local apps
     "apps.core",
+    "apps.users",
+    "apps.catalog",
 ]
+
+# Custom user model (CUSTOMERS entity + role). Must be set before the first migration.
+AUTH_USER_MODEL = "users.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
