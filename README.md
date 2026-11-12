@@ -269,18 +269,21 @@ Frontend structure:
 
 ```text
 frontend/src/
-├── components/   # layout (Header, Footer), catalog (ProductCard, grid) and ui building blocks
+├── components/   # layout (Header, Footer), catalog (ProductCard, grid), auth (AuthCard) and ui building blocks
+├── context/      # AuthProvider: the logged-in user for the whole app (read it with useAuth())
 ├── pages/        # one component per route
-├── services/     # the only layer that fetches data (catalogue service, API errors)
+├── services/     # the only layer that talks to the API (catalogue, auth, API errors)
 ├── hooks/        # reusable React hooks (e.g. useAsync for loading/error states)
 ├── types/        # TypeScript interfaces mirroring the REST API responses
 ├── styles/       # Tailwind CSS entry point and MAISON NOIR design tokens
-├── utils/        # formatting helpers (prices)
+├── utils/        # formatting helpers (prices) and auth form validation
 ├── router.tsx    # route definitions
 └── main.tsx      # application entry point
 ```
 
 > Catalogue data is loaded from the Django REST API at `VITE_API_BASE_URL` (root `.env`) through `src/services/catalogService.ts`, which uses the shared request helper in `src/services/apiClient.ts`. Pages never call `fetch` directly. See `docs/api/catalogue.md` for the API contract.
+
+> Authentication (sign in, register, sign out) follows the contract in `docs/api/auth.md`. **Temporary:** until the auth API is connected (task 3.4), `src/services/authService.ts` is an in-memory stand-in with the same responses and errors. Demo accounts: `demo.customer@example.com` and `demo.admin@example.com`, password `Maison-Noir-26`. Accounts and the session are lost on page reload.
 
 ---
 
