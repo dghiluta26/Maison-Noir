@@ -119,6 +119,11 @@ def test_seed_editorial_texts():
     assert gift_set.edition == "Edition card · N° 012 / 300"
     assert gift_set.primary_image.image.name == "products/paris-after-dark-night-edition-gift-set.jpg"
 
+    assert Collection.objects.get(slug="maison-blanche").tagline == "Le calme du matin"
+    duo = Product.objects.get(sku="MN-MB-H")
+    assert duo.includes.endswith("Calacatta marble tray")
+    assert duo.primary_image.image.name == "products/maison-blanche-home-ritual-duo.jpg"
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()

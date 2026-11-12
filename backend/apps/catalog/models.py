@@ -143,6 +143,9 @@ class Product(SlugFromNameMixin, TimeStampedModel):
         help_text='How long it lasts: candle burn time ("Approximately 50 hours") '
         'or diffuser duration ("Approximately 3 months").',
     )
+    includes = models.TextField(
+        blank=True, help_text="Duos and sets: what is in the box, e.g. candle, diffuser and tray."
+    )
     notes_top = models.CharField("top notes", max_length=200, blank=True)
     notes_heart = models.CharField("heart notes", max_length=200, blank=True)
     notes_base = models.CharField("base notes", max_length=200, blank=True)

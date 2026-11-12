@@ -87,6 +87,7 @@ class ProductDetailSerializer(ProductSummarySerializer):
             "tagline",
             "size",
             "burn_time",
+            "includes",
             "notes_top",
             "notes_heart",
             "notes_base",

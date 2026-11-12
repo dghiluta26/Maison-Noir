@@ -100,6 +100,14 @@ COLLECTIONS = [
         "description": (
             'Clean woods, white tea and soft musk, presented as a Home Ritual Duo of scented candle and reed diffuser.'
         ),
+        "tagline": 'Le calme du matin',
+        "story": (
+            'On a Sunday morning in a courtyard apartment on the rue de Varenne, the first pot of white '
+            'tea steeps by an open window. A pale oak drawer slides shut. Sunlight moves across the '
+            'marble mantel, catching a fine grey vein that disappears again by noon. Maison Blanche '
+            'takes its scent from this room before the day begins. White tea lends a delicate leafy '
+            'note, clean woods give it depth, and soft musk lingers like the warmth of linen against skin.'
+        ),
         "launch_year": 2026,
         "sort_order": 7,
     },
@@ -474,7 +482,24 @@ PRODUCTS = [
         "price": "610.00",
         "stock_quantity": 5,
         "description": (
-            'A scented candle and reed diffuser of clean woods, white tea and soft musk, presented together as one home ritual.'
+            'White tea opens into clean woods and soft musk. Carved from white Calacatta marble, the '
+            'wooden-wick candle and rounded reed diffuser share a matching stone tray. The house arch is '
+            'engraved on the brass lid knob and diffuser collar. Ivory silk holds a burgundy wax seal '
+            'above each hand-numbered cotton-paper label.'
+        ),
+        "tagline": 'White tea on a marble mantel.',
+        "size": '400 g candle · 200 ml diffuser',
+        "burn_time": 'Approximately 80 hours of candlelight and three months of diffusion',
+        "includes": (
+            '400 g candle with matching marble lid · 200 ml diffuser with rattan reeds · '
+            'Calacatta marble tray'
+        ),
+        "notes_top": 'White tea',
+        "notes_heart": 'Clean woods',
+        "notes_base": 'Soft musk',
+        "ritual": (
+            'Let the diffuser greet you in the hallway, then carry the candle to your reading table, '
+            'untie its silk cord and light the wooden wick.'
         ),
     },
     {
@@ -678,6 +703,15 @@ PRODUCT_IMAGES = {
             "alt_text": (
                 'Paris After Dark Night Edition gift set: open burgundy box holding a black marble '
                 'candle, a reed diffuser, spare reeds and a brass candle snuffer on velvet'
+            ),
+        },
+    ],
+    'MN-MB-H': [
+        {
+            "file": 'products/maison-blanche-home-ritual-duo.jpg',
+            "alt_text": (
+                'Maison Blanche Home Ritual Duo: white Calacatta marble candle and reed diffuser '
+                'on a matching marble tray'
             ),
         },
     ],

@@ -20,7 +20,7 @@ SUMMARY_FIELDS = {
 }
 # Optional product-page details, returned by the detail endpoint only.
 DETAIL_TEXT_FIELDS = {
-    "tagline", "size", "burn_time", "notes_top", "notes_heart", "notes_base",
+    "tagline", "size", "burn_time", "includes", "notes_top", "notes_heart", "notes_base",
     "materials", "edition", "ritual",
 }
 
