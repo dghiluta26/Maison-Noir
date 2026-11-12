@@ -4,6 +4,7 @@ Base settings shared by every environment.
 Environment-specific values are read from the `.env` file at the repository root
 (see `.env.example`). Never hard-code secrets in this file.
 """
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -29,6 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Third party
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     # Local apps
     "apps.core",
@@ -104,6 +106,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Secure by default: every endpoint requires authentication unless the view
 # opts out explicitly (e.g. the health check and, later, the public catalogue).
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
@@ -112,5 +117,25 @@ REST_FRAMEWORK = {
     ],
 }
 
-# CORS: allow the Vite dev server to call the API
+# JWT authentication (contract: docs/api/auth.md)
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+# The refresh token lives only in this httpOnly cookie, never in a JSON body.
+AUTH_REFRESH_COOKIE = {
+    "name": "mn_refresh",
+    "path": "/api/auth/",
+    "samesite": "Lax",
+    # True in production (HTTPS only); False for http://localhost.
+    "secure": env.bool("AUTH_COOKIE_SECURE", default=False),
+}
+
+# CORS: allow the Vite dev server to call the API.
+# Credentials (cookies) are needed for the refresh cookie on /api/auth/.
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
+CORS_ALLOW_CREDENTIALS = True

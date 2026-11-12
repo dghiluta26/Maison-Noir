@@ -7,6 +7,7 @@ GET /api/products/                 ?search=  ?category=<slug>  ?collection=<slug
 GET /api/products/{slug}/
 
 Only active products are visible; an inactive or unknown slug returns 404.
+The catalogue is public and ignores any Authorization header.
 """
 from rest_framework import filters, viewsets
 from rest_framework.permissions import AllowAny
@@ -25,6 +26,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategoryListSerializer
     permission_classes = [AllowAny]
+    authentication_classes = []  # public: ignore (possibly expired) tokens
     pagination_class = None
     lookup_field = "slug"
 
@@ -33,12 +35,14 @@ class CollectionViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Collection.objects.all()
     serializer_class = CollectionListSerializer
     permission_classes = [AllowAny]
+    authentication_classes = []  # public: ignore (possibly expired) tokens
     pagination_class = None
     lookup_field = "slug"
 
 
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
+    authentication_classes = []  # public: ignore (possibly expired) tokens
     pagination_class = CataloguePagination
     lookup_field = "slug"
     filter_backends = [filters.SearchFilter]
