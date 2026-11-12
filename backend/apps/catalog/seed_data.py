@@ -203,6 +203,14 @@ COLLECTIONS = [
         "description": (
             'Sandalwood, cedar and dry amber, presented as a Home Ritual Duo of scented candle and reed diffuser.'
         ),
+        "tagline": 'Dans l’atelier d’ébénisterie',
+        "story": (
+            'In a cabinetmaker’s atelier on the rue du Faubourg Saint-Antoine, a curl of cedar falls from '
+            'a hand plane onto the bench. The cabinetmaker pauses to test the fit of a walnut drawer. It '
+            'slides home with a soft click. Santal Residence takes its opening from the scent of those '
+            'fresh shavings. Sandalwood follows, smooth and close, with dry amber beneath. A narrow ring '
+            'of walnut circles the diffuser, its grain still visible under the brushed metal collar.'
+        ),
         "launch_year": 2026,
         "sort_order": 13,
     },
@@ -814,7 +822,24 @@ PRODUCTS = [
         "price": "640.00",
         "stock_quantity": 5,
         "description": (
-            'A scented candle and reed diffuser of sandalwood, cedar and dry amber, presented together as one home ritual.'
+            'Cedar opens into sandalwood and dry amber. The wooden-wick candle and six-reed diffuser share '
+            'a tray of dark Emperador marble. A walnut ring sits beneath the diffuser’s champagne-gold '
+            'collar. The house arch, engraved on the collar and brass lid knob, appears again on burgundy '
+            'wax seals tied with espresso silk above the hand-numbered labels.'
+        ),
+        "tagline": 'Fresh cedar, worn walnut, warm sandalwood.',
+        "size": '400 g candle · 200 ml diffuser',
+        "burn_time": 'Approximately 80 hours of candlelight and three months of diffusion',
+        "includes": (
+            '400 g candle with matching marble lid · 200 ml diffuser with six rattan reeds · '
+            'Emperador marble tray'
+        ),
+        "notes_top": 'Cedar',
+        "notes_heart": 'Sandalwood',
+        "notes_base": 'Dry amber',
+        "ritual": (
+            'Fan the reeds in the study, then slip the silk and seal from the candle and light its wooden '
+            'wick beside your reading chair.'
         ),
     },
 ]
@@ -986,6 +1011,15 @@ PRODUCT_IMAGES = {
             "alt_text": (
                 'Fleur de Maison Home Ritual Duo: blush pink Rosa Portogallo marble candle and reed '
                 'diffuser on a matching marble tray'
+            ),
+        },
+    ],
+    'MN-SR-H': [
+        {
+            "file": 'products/santal-residence-home-ritual-duo.jpg',
+            "alt_text": (
+                'Santal Residence Home Ritual Duo: dark brown Emperador marble candle and reed diffuser '
+                'with a walnut ring, on a matching marble tray'
             ),
         },
     ],

@@ -170,6 +170,14 @@ def test_seed_editorial_texts():
     assert fleur_duo.includes.endswith("Matching marble tray")
     assert fleur_duo.primary_image.image.name == "products/fleur-de-maison-home-ritual-duo.jpg"
 
+    assert Collection.objects.get(slug="santal-residence").tagline == "Dans l’atelier d’ébénisterie"
+    santal_duo = Product.objects.get(sku="MN-SR-H")
+    assert (santal_duo.notes_top, santal_duo.notes_heart, santal_duo.notes_base) == (
+        "Cedar", "Sandalwood", "Dry amber",
+    )
+    assert santal_duo.includes.endswith("Emperador marble tray")
+    assert santal_duo.primary_image.image.name == "products/santal-residence-home-ritual-duo.jpg"
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()
