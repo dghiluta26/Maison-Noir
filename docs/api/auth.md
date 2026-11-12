@@ -18,7 +18,7 @@ Base URL (local): `http://localhost:8000/api/auth`
 | Logout | Blacklists the refresh token and deletes the cookie |
 | Staying logged in after a page reload | On app start the frontend calls `POST /refresh/`; if it succeeds the user is logged in again |
 | Roles | `customer` (every registered account) and `admin` (created only with `createsuperuser` or in the Django admin; never through the API) |
-| Passwords | Hashed by Django (PBKDF2); validated with Django's password validators |
+| Passwords | Hashed with **Argon2** (spec A4); older PBKDF2 hashes are upgraded at the next login. Validated with Django's password validators |
 
 ### Refresh cookie
 
@@ -219,6 +219,8 @@ on the `401` status and `detail`):
 | Visitor (not logged in) | ✅ | `401` | `401` |
 | Customer | ✅ | ✅ | `403` |
 | Admin | ✅ | ✅ | ✅ |
+
+First admin-only endpoint: `GET /api/admin/products/` (see `docs/api/admin.md`).
 
 `403` body: `{"detail": "You do not have permission to perform this action."}`
 

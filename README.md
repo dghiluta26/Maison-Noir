@@ -299,8 +299,6 @@ Status values:
 - **To do**: still has to be done before Presentation 2
 - **Planned**: scheduled after Presentation 2
 
-The full plan, with dependencies and handovers, is in `P2_Implementation_Execution_Plan.md`.
-
 ### Presentation 2: prototype
 
 | No. | Task | Assigned to | Status |
@@ -317,12 +315,12 @@ The full plan, with dependencies and handovers, is in `P2_Implementation_Executi
 | 2.3 | Implement the repeatable `seed_catalogue` command for the 32 products | Denis | Done |
 | 2.4 | Implement and document the catalogue endpoints | Denis | Done |
 | 2.5 | Connect the catalogue and product pages to the live API and remove the mock data | Alexia | Done |
-| 2.6 | Resolve integration feedback: serializers, queries, product images, CORS, missing fields | Denis | To do |
+| 2.6 | Resolve integration feedback: serializers, queries, product images, CORS, missing fields | Denis | Done (no defects found) |
 | 3.1 | Decide and document the JWT auth contract | Denis | Done |
-| 3.2 | Build the Register and Login pages, form validation and header states (no live calls) | Alexia | Done |
+| 3.2 | Build the Register and Login pages, form validation and header states (no live calls) | Denis | Done |
 | 3.3 | Implement the auth endpoints, password handling, JWT configuration, permissions and tests | Denis | Done |
-| 3.4 | Connect the forms to the auth API: header state, logout, redirects, protected `/account` page | Alexia | Done (PR awaiting review) |
-| 3.5 | Fix auth integration issues and block customers from admin-only endpoints | Denis | To do |
+| 3.4 | Connect the forms to the auth API: header state, logout, redirects, protected `/account` page | Alexia | Done |
+| 3.5 | Fix auth integration issues and block customers from admin-only endpoints (Argon2 hashing, `/api/admin/products/`) | Denis | Done |
 | 4.1 | Fresh-clone setup test: containers, migrations, seed, backend, frontend | Denis (Alexia repeats it) | To do |
 | 4.2 | Test the responsive UI (360 px), loading and error states, and the P2 demo path | Alexia | To do |
 | 4.3 | Complete the baseline automated tests and update the README and API documentation | Denis | To do |

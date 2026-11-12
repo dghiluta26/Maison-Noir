@@ -80,3 +80,10 @@ class ProductDetailSerializer(ProductSummarySerializer):
 
     class Meta(ProductSummarySerializer.Meta):
         fields = ProductSummarySerializer.Meta.fields + ["description", "images"]
+
+
+class AdminProductSerializer(ProductDetailSerializer):
+    """Product as seen by administrators: also inactive products and audit dates."""
+
+    class Meta(ProductDetailSerializer.Meta):
+        fields = ProductDetailSerializer.Meta.fields + ["is_active", "created_at", "updated_at"]

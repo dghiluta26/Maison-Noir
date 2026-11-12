@@ -83,6 +83,15 @@ DATABASES = {
     }
 }
 
+# Passwords are stored with Argon2 (spec A4: bcrypt or Argon2). The PBKDF2
+# hashers stay listed only to verify older hashes; Django re-hashes them with
+# Argon2 automatically at the user's next login.
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+]
+
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
