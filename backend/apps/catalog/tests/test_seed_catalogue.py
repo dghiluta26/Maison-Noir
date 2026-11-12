@@ -134,6 +134,16 @@ def test_seed_editorial_texts():
         )
         assert product.primary_image is not None
 
+    ambre = Collection.objects.get(slug="ambre-parisien")
+    assert ambre.tagline == "Le bois des loges"
+    assert ambre.image.name == "collections/ambre-parisien.jpg"
+    for sku in ("MN-AP-P", "MN-AP-C", "MN-AP-D"):
+        product = Product.objects.get(sku=sku)
+        assert (product.notes_top, product.notes_heart, product.notes_base) == (
+            "Amber accord", "Labdanum", "Sandalwood",
+        )
+        assert product.primary_image is not None
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()

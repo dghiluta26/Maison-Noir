@@ -134,6 +134,14 @@ COLLECTIONS = [
         "description": (
             'Amber, labdanum and sandalwood, with a golden, resinous warmth.'
         ),
+        "tagline": 'Le bois des loges',
+        "story": (
+            'In a dressing room at the Palais Garnier, a violinist sets her cufflinks on the wooden '
+            'ledge beneath the mirror. The orchestra is tuning on the other side of the wall. She lifts '
+            'a fluted bottle to the light, and a narrow stripe of burnt orange falls across the evening '
+            'programme. Ambre Parisien begins with the warmth of amber. Labdanum lends a darker, almost '
+            'leathery note, and sandalwood stays at the wrist long after the music has ended.'
+        ),
         "launch_year": 2026,
         "sort_order": 9,
     },
@@ -588,8 +596,17 @@ PRODUCTS = [
         "price": "690.00",
         "stock_quantity": 5,
         "description": (
-            'An eau de parfum of amber, labdanum and sandalwood — warm and enveloping.'
+            'Amber opens on the skin, deepening through resinous labdanum to a smooth sandalwood finish. '
+            'Fine flutes run down the cognac glass to a heavy, clear base. Beneath the square '
+            'champagne-gold cap, burgundy silk holds a wax seal above the hand-numbered ivory label. The '
+            'house arch is engraved on the cap’s brushed top face.'
         ),
+        "tagline": 'Amber against a silk cuff.',
+        "size": '100 ml',
+        "notes_top": 'Amber accord',
+        "notes_heart": 'Labdanum',
+        "notes_base": 'Sandalwood',
+        "ritual": 'Mist the inside of the wrist and let the sandalwood emerge as the fragrance warms.',
     },
     {
         "sku": 'MN-AP-C',
@@ -600,7 +617,19 @@ PRODUCTS = [
         "price": "330.00",
         "stock_quantity": 6,
         "description": (
-            'Amber, labdanum and sandalwood in a scented candle with a golden, resinous warmth.'
+            'A single flame sends narrow bars of amber light through the fluted cognac tumbler. '
+            'Labdanum gives the melting wax a resinous depth, softened by sandalwood. Burgundy silk '
+            'circles the glass twice above the hand-numbered label. Pressed into the wax seal, the house '
+            'arch appears again on the brushed champagne-gold lid.'
+        ),
+        "tagline": 'Amber lit from within.',
+        "size": '220 g',
+        "burn_time": 'Approximately 50 hours',
+        "notes_top": 'Amber accord',
+        "notes_heart": 'Labdanum',
+        "notes_base": 'Sandalwood',
+        "ritual": (
+            'Lift the lid, unwind the silk cord and set the seal aside before lighting the wick at dusk.'
         ),
     },
     {
@@ -612,7 +641,20 @@ PRODUCTS = [
         "price": "430.00",
         "stock_quantity": 5,
         "description": (
-            'A reed diffuser of amber, labdanum and sandalwood for living rooms and entrance halls.'
+            'Six espresso rattan reeds rise from a rounded bottle of fluted cognac glass. Amber greets '
+            'you at the door, with labdanum and sandalwood giving the room a quiet, woody warmth. A '
+            'burgundy wax seal hangs from silk knotted beneath the arch-engraved champagne collar, just '
+            'above the hand-numbered cotton-paper label.'
+        ),
+        "tagline": 'The scent of the drawing room.',
+        "size": '200 ml',
+        "burn_time": 'Approximately three months',
+        "notes_top": 'Amber accord',
+        "notes_heart": 'Labdanum',
+        "notes_base": 'Sandalwood',
+        "ritual": (
+            'Set the diffuser on a console and fan the reeds, leaving room between them for the '
+            'fragrance to travel.'
         ),
     },
     {
@@ -699,6 +741,7 @@ COLLECTION_IMAGES = {
     'midnight-in-paris': 'collections/midnight-in-paris.jpg',
     'paris-after-dark': 'collections/paris-after-dark.jpg',
     'soft-linen': 'collections/soft-linen.jpg',
+    'ambre-parisien': 'collections/ambre-parisien.jpg',
 }
 
 # product SKU -> images, the first one is the primary image
@@ -781,6 +824,33 @@ PRODUCT_IMAGES = {
             "alt_text": (
                 'Soft Linen reed diffuser: rounded pale grey stone bottle with six dark rattan reeds '
                 'and a champagne collar'
+            ),
+        },
+    ],
+    'MN-AP-P': [
+        {
+            "file": 'products/ambre-parisien-eau-de-parfum.jpg',
+            "alt_text": (
+                'Ambre Parisien eau de parfum: fluted cognac glass flacon with a square champagne-gold cap '
+                'and a burgundy wax seal'
+            ),
+        },
+    ],
+    'MN-AP-C': [
+        {
+            "file": 'products/ambre-parisien-scented-candle.jpg',
+            "alt_text": (
+                'Ambre Parisien scented candle: fluted cognac glass tumbler tied with burgundy silk, '
+                'its champagne-gold lid leaning beside it'
+            ),
+        },
+    ],
+    'MN-AP-D': [
+        {
+            "file": 'products/ambre-parisien-reed-diffuser.jpg',
+            "alt_text": (
+                'Ambre Parisien reed diffuser: rounded fluted cognac glass bottle with six espresso reeds '
+                'and a champagne-gold collar'
             ),
         },
     ],
