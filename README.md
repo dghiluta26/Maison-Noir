@@ -350,7 +350,7 @@ As the course rules require, the team declares the AI tools used in this project
 | Tool | Used for |
 |---|---|
 | **Claude** (Anthropic, through Claude Code) | Help with code and implementation: writing and reviewing code, debugging, setting up the local environment, and drafting documentation |
-| **Gemini** (Google) | Generating the product images for the catalogue |
+| **ChatGPT** (OpenAI) | Generating the product and collection images for the catalogue |
 
 ---
 

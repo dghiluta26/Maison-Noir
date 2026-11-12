@@ -692,7 +692,7 @@ PRODUCTS = [
 # --- Images ------------------------------------------------------------------
 # Files live in apps/catalog/seed_images/ (committed, unlike media/). The seed
 # command copies each one to MEDIA_ROOT under the same relative path.
-# Product images were generated with Gemini (see README, "AI Tools Used").
+# Product and collection images were generated with ChatGPT (see README, "AI Tools Used").
 
 # collection slug -> picture shown in the collection page hero
 COLLECTION_IMAGES = {
