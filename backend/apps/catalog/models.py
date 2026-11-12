@@ -138,7 +138,10 @@ class Product(SlugFromNameMixin, TimeStampedModel):
     )
     size = models.CharField(max_length=50, blank=True, help_text='e.g. "100 ml" or "220 g".')
     burn_time = models.CharField(
-        max_length=100, blank=True, help_text='Candles only, e.g. "Approximately 50 hours".'
+        max_length=100,
+        blank=True,
+        help_text='How long it lasts: candle burn time ("Approximately 50 hours") '
+        'or diffuser duration ("Approximately 3 months").',
     )
     notes_top = models.CharField("top notes", max_length=200, blank=True)
     notes_heart = models.CharField("heart notes", max_length=200, blank=True)

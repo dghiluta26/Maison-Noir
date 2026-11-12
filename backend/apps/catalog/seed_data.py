@@ -83,6 +83,14 @@ COLLECTIONS = [
         "description": (
             'Incense, dark woods and warm spice: deep, enveloping and made for intimate evenings.'
         ),
+        "tagline": 'Le salon se vide',
+        "story": (
+            'The last guest has gone from an apartment on the Île Saint-Louis. Someone lifts the lid '
+            'of a cedar box to return a deck of cards. A little incense still hangs in the folds of the '
+            'curtains, mingling with the scent of clove from an empty glass. In the drawing room, a lamp '
+            'picks out a single white vein in the black marble mantel. Paris After Dark gathers these '
+            'traces of an evening into a fragrance for the home.'
+        ),
         "launch_year": 2026,
         "sort_order": 6,
     },
@@ -393,7 +401,19 @@ PRODUCTS = [
         "price": "320.00",
         "stock_quantity": 6,
         "description": (
-            'Incense, dark woods and warm spice in a scented candle for intimate evenings.'
+            'Three wooden wicks crackle above a low bowl carved from Nero Marquina marble. Clove warms '
+            'the incense, and dark woods linger as the room grows quiet. Two turns of black silk hold a '
+            'burgundy wax seal above the hand-numbered label. The seal’s fine arch appears again on the '
+            'brass knob of the matching stone lid.'
+        ),
+        "tagline": 'Three flames above black marble.',
+        "size": '400 g',
+        "burn_time": 'Approximately 80 hours',
+        "notes_top": 'Clove',
+        "notes_heart": 'Incense',
+        "notes_base": 'Dark cedarwood',
+        "ritual": (
+            'Lift the marble lid, slip off the silk cord and seal, and light all three wicks as evening settles.'
         ),
     },
     {
@@ -405,7 +425,19 @@ PRODUCTS = [
         "price": "410.00",
         "stock_quantity": 5,
         "description": (
-            'A reed diffuser of incense, dark woods and warm spice — deep and enveloping.'
+            'Six dark reeds rise from a rounded vessel of polished Nero Marquina. A brushed '
+            'champagne-gold collar carries the engraved house arch. Black silk suspends a burgundy wax '
+            'seal above the hand-numbered ivory label. In a hallway, the first impression is warm spice, '
+            'followed by incense and the dry grain of cedar.'
+        ),
+        "tagline": 'Incense at the threshold.',
+        "size": '200 ml',
+        "burn_time": 'Approximately 3 months',
+        "notes_top": 'Clove',
+        "notes_heart": 'Incense',
+        "notes_base": 'Dark cedarwood',
+        "ritual": (
+            'Fan the six rattan reeds through the collar and turn them occasionally to refresh the fragrance.'
         ),
     },
     {
@@ -417,7 +449,20 @@ PRODUCTS = [
         "price": "890.00",
         "stock_quantity": 2,
         "description": (
-            'The Paris After Dark scented candle and reed diffuser together in a numbered edition. One of only two MAISON NOIR gift sets.'
+            'Burgundy linen opens to reveal two black marble vessels nestled in espresso velvet. The '
+            'hand-numbered candle and diffuser share an accord of clove, incense and dark cedar. The '
+            'arch engraved in their metalwork appears in champagne foil inside the lid. Beneath the '
+            'pair, a burgundy wax seal fastens black silk beside the numbered edition card.'
+        ),
+        "tagline": 'One fragrance, two evening rituals.',
+        "size": '400 g candle and 200 ml diffuser',
+        "notes_top": 'Clove',
+        "notes_heart": 'Incense',
+        "notes_base": 'Dark cedarwood',
+        "edition": 'Edition card · N° 012 / 300',
+        "ritual": (
+            'Set the diffuser in the entrance and light the candle in the salon, carrying the same '
+            'fragrance from one room to the next.'
         ),
     },
     {
@@ -586,6 +631,7 @@ PRODUCTS = [
 # collection slug -> picture shown in the collection page hero
 COLLECTION_IMAGES = {
     'midnight-in-paris': 'collections/midnight-in-paris.jpg',
+    'paris-after-dark': 'collections/paris-after-dark.jpg',
 }
 
 # product SKU -> images, the first one is the primary image
@@ -606,6 +652,33 @@ PRODUCT_IMAGES = {
         {
             "file": 'products/fleur-de-minuit-eau-de-parfum.jpg',
             "alt_text": 'Fleur de Minuit eau de parfum: burgundy glass flacon with a champagne-gold cap and a wax seal',
+        },
+    ],
+    'MN-PD-C': [
+        {
+            "file": 'products/paris-after-dark-scented-candle.jpg',
+            "alt_text": (
+                'Paris After Dark scented candle: low black marble bowl with three wooden wicks, '
+                'its marble lid with a brass knob leaning beside it'
+            ),
+        },
+    ],
+    'MN-PD-D': [
+        {
+            "file": 'products/paris-after-dark-reed-diffuser.jpg',
+            "alt_text": (
+                'Paris After Dark reed diffuser: rounded black marble vessel with six dark reeds '
+                'and a champagne-gold collar'
+            ),
+        },
+    ],
+    'MN-PD-G': [
+        {
+            "file": 'products/paris-after-dark-night-edition-gift-set.jpg',
+            "alt_text": (
+                'Paris After Dark Night Edition gift set: open burgundy box holding a black marble '
+                'candle, a reed diffuser, spare reeds and a brass candle snuffer on velvet'
+            ),
         },
     ],
 }

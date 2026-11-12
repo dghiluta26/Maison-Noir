@@ -108,6 +108,17 @@ def test_seed_editorial_texts():
     assert fleur.materials == ""
     assert fleur.burn_time == ""
 
+    after_dark = Collection.objects.get(slug="paris-after-dark")
+    assert after_dark.tagline == "Le salon se vide"
+    assert after_dark.image.name == "collections/paris-after-dark.jpg"
+
+    diffuser = Product.objects.get(sku="MN-PD-D")
+    assert diffuser.burn_time == "Approximately 3 months"
+    assert diffuser.primary_image.image.name == "products/paris-after-dark-reed-diffuser.jpg"
+    gift_set = Product.objects.get(sku="MN-PD-G")
+    assert gift_set.edition == "Edition card · N° 012 / 300"
+    assert gift_set.primary_image.image.name == "products/paris-after-dark-night-edition-gift-set.jpg"
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()
