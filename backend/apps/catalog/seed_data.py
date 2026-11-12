@@ -117,6 +117,14 @@ COLLECTIONS = [
         "description": (
             'Cotton blossom, pear and white musk: clean, soft and airy.'
         ),
+        "tagline": 'Le pli du lin',
+        "story": (
+            'At a linen merchant’s on the rue du Mail, the first customer of the morning runs her thumb '
+            'along the selvedge of a bolt of ivory cloth. The merchant unrolls a length across the '
+            'counter. It settles in a single loose fold beside his breakfast pear, still cool from the '
+            'market. Soft Linen opens with that first bite of pear. Cotton blossom gives the fragrance '
+            'its airy heart, and white musk stays close, like the inside of a freshly pressed cuff.'
+        ),
         "launch_year": 2026,
         "sort_order": 8,
     },
@@ -511,8 +519,17 @@ PRODUCTS = [
         "price": "550.00",
         "stock_quantity": 9,
         "description": (
-            'An eau de parfum of cotton blossom, pear and white musk — clean, soft and airy.'
+            'Cool pear gives way to cotton blossom and a trace of white musk at the wrist. Fine white '
+            'veins cross the flacon’s grey stone-effect finish, ending where the heavy glass base turns '
+            'clear. Beneath the arch-engraved champagne cap, an ivory linen knot holds a burgundy wax '
+            'seal above the hand-numbered label.'
         ),
+        "tagline": 'Pear beneath a linen cuff.',
+        "size": '100 ml',
+        "notes_top": 'Pear',
+        "notes_heart": 'Cotton blossom',
+        "notes_base": 'White musk',
+        "ritual": 'Mist the inside of each wrist and let the fragrance dry before slipping on a shirt.',
     },
     {
         "sku": 'MN-SL-C',
@@ -523,7 +540,19 @@ PRODUCTS = [
         "price": "270.00",
         "stock_quantity": 10,
         "description": (
-            'Cotton blossom, pear and white musk in a calm, fresh scented candle.'
+            'A wooden wick crackles as pear and cotton blossom rise from the warm wax. White musk '
+            'lingers in the room. The rounded vessel and its lid are carved from pale grey stone, '
+            'threaded with white. Ivory linen circles the hand-numbered vessel twice, and its burgundy '
+            'seal echoes the arch engraved on the lid’s brass knob.'
+        ),
+        "tagline": 'Cotton blossom by candlelight.',
+        "size": '400 g',
+        "burn_time": 'Approximately 80 hours',
+        "notes_top": 'Pear',
+        "notes_heart": 'Cotton blossom',
+        "notes_base": 'White musk',
+        "ritual": (
+            'Lift the stone lid, unwind the linen cord and set the seal aside before lighting the wooden wick.'
         ),
     },
     {
@@ -535,7 +564,19 @@ PRODUCTS = [
         "price": "360.00",
         "stock_quantity": 8,
         "description": (
-            'A reed diffuser of cotton blossom, pear and white musk for bedrooms and dressing rooms.'
+            'Six dark rattan reeds carry pear and cotton blossom through the room over a soft base of '
+            'white musk. Their slender lines pick up the pale veining in the rounded stone bottle. An '
+            'ivory linen cord carries a burgundy wax seal between the arch-engraved champagne collar and '
+            'the hand-numbered cotton-paper label.'
+        ),
+        "tagline": 'A fresh note at the door.',
+        "size": '200 ml',
+        "burn_time": 'Approximately three months',
+        "notes_top": 'Pear',
+        "notes_heart": 'Cotton blossom',
+        "notes_base": 'White musk',
+        "ritual": (
+            'Set the bottle on a hallway console and fan the reeds so the pear greets you at the door.'
         ),
     },
     {
@@ -657,6 +698,7 @@ PRODUCTS = [
 COLLECTION_IMAGES = {
     'midnight-in-paris': 'collections/midnight-in-paris.jpg',
     'paris-after-dark': 'collections/paris-after-dark.jpg',
+    'soft-linen': 'collections/soft-linen.jpg',
 }
 
 # product SKU -> images, the first one is the primary image
@@ -712,6 +754,33 @@ PRODUCT_IMAGES = {
             "alt_text": (
                 'Maison Blanche Home Ritual Duo: white Calacatta marble candle and reed diffuser '
                 'on a matching marble tray'
+            ),
+        },
+    ],
+    'MN-SL-P': [
+        {
+            "file": 'products/soft-linen-eau-de-parfum.jpg',
+            "alt_text": (
+                'Soft Linen eau de parfum: grey stone-effect flacon with a champagne cap, '
+                'an ivory linen knot and a burgundy wax seal'
+            ),
+        },
+    ],
+    'MN-SL-C': [
+        {
+            "file": 'products/soft-linen-scented-candle.jpg',
+            "alt_text": (
+                'Soft Linen scented candle: pale grey stone vessel with a wooden wick, '
+                'its stone lid with a brass knob leaning beside it'
+            ),
+        },
+    ],
+    'MN-SL-D': [
+        {
+            "file": 'products/soft-linen-reed-diffuser.jpg',
+            "alt_text": (
+                'Soft Linen reed diffuser: rounded pale grey stone bottle with six dark rattan reeds '
+                'and a champagne collar'
             ),
         },
     ],

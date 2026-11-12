@@ -124,6 +124,16 @@ def test_seed_editorial_texts():
     assert duo.includes.endswith("Calacatta marble tray")
     assert duo.primary_image.image.name == "products/maison-blanche-home-ritual-duo.jpg"
 
+    soft_linen = Collection.objects.get(slug="soft-linen")
+    assert soft_linen.tagline == "Le pli du lin"
+    assert soft_linen.image.name == "collections/soft-linen.jpg"
+    for sku in ("MN-SL-P", "MN-SL-C", "MN-SL-D"):
+        product = Product.objects.get(sku=sku)
+        assert (product.notes_top, product.notes_heart, product.notes_base) == (
+            "Pear", "Cotton blossom", "White musk",
+        )
+        assert product.primary_image is not None
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()
