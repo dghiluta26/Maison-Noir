@@ -221,6 +221,8 @@ python manage.py createsuperuser
 
 Users log in with their **email address**. Every account has a role: `customer` (default for new accounts) or `admin` (given automatically to superusers).
 
+The authentication API (`/api/auth/register/`, `login/`, `refresh/`, `logout/`, `me/`) uses JWT: a short-lived access token in the response body and the refresh token in an httpOnly cookie. See `docs/api/auth.md`.
+
 Start the API:
 
 ```bash

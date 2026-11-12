@@ -1,7 +1,7 @@
 # Authentication API (contract)
 
-**Status:** agreed contract for P2 (task 3.1). Backend implementation: task 3.3.
-Frontend pages: task 3.2 (forms, no live calls) and 3.4 (integration).
+**Status:** agreed contract for P2 (task 3.1), **implemented in the backend** (task 3.3,
+`backend/apps/users/`). Frontend pages: task 3.2 (forms, no live calls) and 3.4 (integration).
 
 Base URL (local): `http://localhost:8000/api/auth`
 
@@ -192,10 +192,21 @@ The user object.
 
 ### Response `401 Unauthorized`
 
-Missing, invalid or expired access token:
+No token:
 
 ```json
 { "detail": "Authentication credentials were not provided." }
+```
+
+Invalid or expired token (the JWT library adds `code` and `messages`; rely only
+on the `401` status and `detail`):
+
+```json
+{
+  "detail": "Given token not valid for any token type",
+  "code": "token_not_valid",
+  "messages": [{ "token_class": "AccessToken", "token_type": "access", "message": "Token is invalid" }]
+}
 ```
 
 ---
@@ -209,6 +220,10 @@ Missing, invalid or expired access token:
 | Admin | ✅ | ✅ | ✅ |
 
 `403` body: `{"detail": "You do not have permission to perform this action."}`
+
+Backend: protect an endpoint with `permission_classes = [IsAdminRole]`
+(`apps.users.permissions`). Public endpoints (catalogue, auth entry points)
+ignore the `Authorization` header, so an expired token never breaks them.
 
 ---
 
