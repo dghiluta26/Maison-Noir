@@ -271,7 +271,7 @@ Frontend structure:
 
 ```text
 frontend/src/
-├── components/   # layout (Header, Footer), catalog (ProductCard, grid), auth (AuthCard) and ui building blocks
+├── components/   # layout (Header, Footer), catalog (ProductCard, grid), auth (AuthCard, RequireAuth) and ui building blocks
 ├── context/      # AuthProvider: the logged-in user for the whole app (read it with useAuth())
 ├── pages/        # one component per route
 ├── services/     # the only layer that talks to the API (catalogue, auth, API errors)
@@ -285,7 +285,74 @@ frontend/src/
 
 > Catalogue data is loaded from the Django REST API at `VITE_API_BASE_URL` (root `.env`) through `src/services/catalogService.ts`, which uses the shared request helper in `src/services/apiClient.ts`. Pages never call `fetch` directly. See `docs/api/catalogue.md` for the API contract.
 
-> Authentication (sign in, register, sign out) follows the contract in `docs/api/auth.md`. **Temporary:** until the auth API is connected (task 3.4), `src/services/authService.ts` is an in-memory stand-in with the same responses and errors. Demo accounts: `demo.customer@example.com` and `demo.admin@example.com`, password `Maison-Noir-26`. Accounts and the session are lost on page reload.
+> Authentication (sign in, register, sign out, `/account`) uses the live auth API through `src/services/authService.ts`; see `docs/api/auth.md` for the contract. The access token is kept in memory only and the refresh token in an httpOnly cookie, so the session survives a page reload. Requests that need a logged-in user go through `authRequest()`, which refreshes the access token once on `401` and retries. Pages that need a logged-in user are wrapped in `<RequireAuth>` (see `src/router.tsx`).
+>
+> Open the app at **http://localhost:5173**, not `127.0.0.1`: the refresh cookie only works when the frontend and the API are both on `localhost`. To test the admin role, create an account with `python manage.py createsuperuser`.
+
+---
+
+## Task Plan and Status
+
+Status values:
+
+- **Done**: implemented and merged into `main`
+- **To do**: still has to be done before Presentation 2
+- **Planned**: scheduled after Presentation 2
+
+The full plan, with dependencies and handovers, is in `P2_Implementation_Execution_Plan.md`.
+
+### Presentation 2: prototype
+
+| No. | Task | Assigned to | Status |
+|---:|---|---|---|
+| 0.1 | Agree the final catalogue, product fields, initial API shape and ERD draft | Alexia + Denis | Done |
+| 0.2 | Create the GitHub repository, invite the collaborator, configure branch protection and the issue board | Denis | Done |
+| 0.3 | Create the repository structure, `.gitignore`, `.env.example`, initial README and Docker Compose | Denis | Done |
+| 0.4 | Initialise Django, DRF, the PostgreSQL connection and the health endpoint | Denis | Done |
+| 1.1 | Initialise React + TypeScript and create the base folders | Alexia | Done |
+| 1.2 | Create the MAISON NOIR design tokens, layout, Header, Footer and route skeleton | Alexia | Done |
+| 1.3 | Build `ProductCard`, the catalogue grid and the product page with temporary mock data | Alexia | Done |
+| 2.1 | Create the custom `User` model and the `users` and `catalog` apps | Denis | Done |
+| 2.2 | Implement `Category`, `Collection`, `Product`, `ProductImage`, constraints and migrations | Denis | Done |
+| 2.3 | Implement the repeatable `seed_catalogue` command for the 32 products | Denis | Done |
+| 2.4 | Implement and document the catalogue endpoints | Denis | Done |
+| 2.5 | Connect the catalogue and product pages to the live API and remove the mock data | Alexia | Done |
+| 2.6 | Resolve integration feedback: serializers, queries, product images, CORS, missing fields | Denis | To do |
+| 3.1 | Decide and document the JWT auth contract | Denis | Done |
+| 3.2 | Build the Register and Login pages, form validation and header states (no live calls) | Alexia | Done |
+| 3.3 | Implement the auth endpoints, password handling, JWT configuration, permissions and tests | Denis | Done |
+| 3.4 | Connect the forms to the auth API: header state, logout, redirects, protected `/account` page | Alexia | Done (PR awaiting review) |
+| 3.5 | Fix auth integration issues and block customers from admin-only endpoints | Denis | To do |
+| 4.1 | Fresh-clone setup test: containers, migrations, seed, backend, frontend | Denis (Alexia repeats it) | To do |
+| 4.2 | Test the responsive UI (360 px), loading and error states, and the P2 demo path | Alexia | To do |
+| 4.3 | Complete the baseline automated tests and update the README and API documentation | Denis | To do |
+| 4.4 | Merge the approved PRs, rehearse the demo and tag `P2` | Alexia + Denis | To do |
+
+### After Presentation 2
+
+| No. | Task | Requirement | Assigned to | Status |
+|---:|---|---|---|---|
+| 5.1 | Filtered search and sorting | A2, B1 | Denis (API) + Alexia (UI) | Planned |
+| 5.2 | Persistent cart and delivery methods | A3 | Alexia | Planned |
+| 5.3 | Wishlist | B7 | Alexia + Denis | Planned |
+| 5.4 | Orders, discount codes and checkout | A5, B5 | Alexia | Planned |
+| 5.5 | Stripe test mode and webhook processing | A6, A7 | Alexia | Planned |
+| 5.6 | Transactional email through Mailtrap | B6 | Alexia + Denis | Planned |
+| 5.7 | Reviews and ratings, restricted to verified purchases | B3 | Alexia + Denis | Planned |
+| 5.8 | Admin management and sales dashboard | A9, B4 | Denis | Planned |
+| 5.9 | Recommendations based on category, collection and order data | B2 | Alexia + Denis | Planned |
+| 5.10 | Accessibility, responsiveness, security checks and more test coverage | A10, A11, A12 | Alexia + Denis | Planned |
+
+---
+
+## AI Tools Used
+
+As the course rules require, the team declares the AI tools used in this project. Every team member reviewed the AI-assisted work and can explain the resulting code.
+
+| Tool | Used for |
+|---|---|
+| **Claude** (Anthropic, through Claude Code) | Help with code and implementation: writing and reviewing code, debugging, setting up the local environment, and drafting documentation |
+| **Gemini** (Google) | Generating the product images for the catalogue |
 
 ---
 

@@ -65,6 +65,22 @@ export function validateRegister(values: RegisterFormValues): FormErrors<keyof R
   return errors
 }
 
+/** Pages that only make sense for visitors; never redirect back to them after signing in. */
+const AUTH_PAGES = ['/login', '/register']
+
+/**
+ * Where to go after signing in / registering: the page in `location.state.from`
+ * (set by the header link or a protected route), else home. Only same-site paths
+ * are accepted, and never the auth pages themselves (that would loop).
+ */
+export function redirectTarget(state: unknown): string {
+  const from =
+    state && typeof state === 'object' && 'from' in state && typeof state.from === 'string' ? state.from : ''
+  const isSafePath = from.startsWith('/') && !from.startsWith('//')
+  const pathname = from.split(/[?#]/)[0]
+  return isSafePath && !AUTH_PAGES.includes(pathname) ? from : '/'
+}
+
 export function hasErrors(errors: object): boolean {
   return Object.keys(errors).length > 0
 }

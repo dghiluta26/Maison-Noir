@@ -26,6 +26,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  // An authenticated request found that the session is over (refresh failed).
+  useEffect(() => authService.onSessionExpired(() => setState(ANONYMOUS)), [])
+
   const login = useCallback(async (payload: LoginPayload) => {
     const { user } = await authService.login(payload)
     setState({ status: 'authenticated', user })

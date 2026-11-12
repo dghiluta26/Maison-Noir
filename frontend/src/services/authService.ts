@@ -2,22 +2,23 @@
  * Authentication service — the ONLY place the UI talks to the auth API.
  * Contract: docs/api/auth.md.
  *
- * TEMPORARY (task 3.2): an in-memory stand-in that returns exactly the
- * responses and errors described in the contract, so the forms and header
- * states can be built without live calls. In task 3.4 the function bodies are
- * replaced with real requests (`credentials: 'include'` for the refresh cookie);
- * the signatures stay the same, so pages and the AuthProvider do not change.
+ *   POST /api/auth/register/  -> 201 {access, user} + refresh cookie
+ *   POST /api/auth/login/     -> 200 {access, user} + refresh cookie
+ *   POST /api/auth/refresh/   -> 200 {access, user} + new (rotated) refresh cookie
+ *   POST /api/auth/logout/    -> 204, cookie deleted
+ *   GET  /api/auth/me/        -> 200 user (needs the access token)
  *
- * Stand-in limits: accounts and the session live in memory, so a page reload
- * logs you out and forgets accounts registered in this tab.
- * Demo accounts (stand-in only):
- *   demo.customer@example.com / Maison-Noir-26  (role: customer)
- *   demo.admin@example.com    / Maison-Noir-26  (role: admin)
+ * The access token lives in memory only (never localStorage). The refresh token
+ * is an httpOnly cookie the browser handles for us, so every call to the auth
+ * entry points uses `withCredentials` (fetch `credentials: 'include'`).
+ * Endpoints that need a logged-in user are called through authRequest().
+ * Failures are raised as ApiError (see ./errors).
  */
 import type { AuthResponse, LoginPayload, RegisterPayload, User } from '../types/auth'
-import { ApiError, type FieldErrors } from './errors'
+import { apiRequest, type RequestOptions } from './apiClient'
+import { isUnauthorized } from './errors'
 
-/** Access token, kept in memory only (never localStorage). Used by API calls in task 3.4. */
+/** Access token, kept in memory only. Lost on page reload; restored by refresh(). */
 let accessToken: string | null = null
 
 export function getAccessToken(): string | null {
@@ -25,94 +26,101 @@ export function getAccessToken(): string | null {
 }
 
 export async function register(payload: RegisterPayload): Promise<AuthResponse> {
-  await stubDelay()
-  const email = payload.email.trim().toLowerCase()
-
-  const errors: FieldErrors = {}
-  if (stubAccounts.has(email)) {
-    errors.email = ['An account with this email already exists.']
-  }
-  if (payload.password.length < 8) {
-    errors.password = ['This password is too short. It must contain at least 8 characters.']
-  }
-  if (Object.keys(errors).length > 0) {
-    throw new ApiError('Please correct the highlighted fields.', 400, errors)
-  }
-
-  const user: User = {
-    id: stubNextId++,
-    email,
-    first_name: payload.first_name.trim(),
-    last_name: payload.last_name.trim(),
-    phone_number: payload.phone_number?.trim() ?? '',
-    role: 'customer',
-  }
-  stubAccounts.set(email, { user, password: payload.password })
-  return startSession(user)
+  return startSession(
+    apiRequest<AuthResponse>('/auth/register/', { method: 'POST', body: payload, withCredentials: true }),
+  )
 }
 
 export async function login(payload: LoginPayload): Promise<AuthResponse> {
-  await stubDelay()
-  const account = stubAccounts.get(payload.email.trim().toLowerCase())
-  if (!account || account.password !== payload.password) {
-    throw new ApiError('Invalid email or password.', 401)
-  }
-  return startSession(account.user)
+  return startSession(
+    apiRequest<AuthResponse>('/auth/login/', { method: 'POST', body: payload, withCredentials: true }),
+  )
 }
 
-/** Restores the session from the refresh cookie (called when the app starts). */
-export async function refresh(): Promise<AuthResponse> {
-  await stubDelay()
-  const account = stubSessionEmail ? stubAccounts.get(stubSessionEmail) : undefined
-  if (!account) {
-    throw new ApiError('Session expired. Please log in again.', 401)
-  }
-  return startSession(account.user)
+/** A refresh request that is still running; shared by everyone who asks meanwhile. */
+let refreshInFlight: Promise<AuthResponse> | null = null
+
+/**
+ * Gets a new access token from the refresh cookie (used when the app starts and
+ * when an access token has expired). Rejects with a 401 ApiError when there is
+ * no valid session.
+ *
+ * Concurrent calls share one request: the backend rotates the refresh token, so
+ * a second parallel request would send a cookie that was just invalidated and
+ * end the session (this happens on every reload in dev, where StrictMode runs
+ * the startup effect twice).
+ */
+export function refresh(): Promise<AuthResponse> {
+  refreshInFlight ??= startSession(
+    apiRequest<AuthResponse>('/auth/refresh/', { method: 'POST', withCredentials: true }),
+  ).finally(() => {
+    refreshInFlight = null
+  })
+  return refreshInFlight
 }
 
-/** Always succeeds (the API returns 204 even when not logged in). */
+/** Always succeeds locally: the token is dropped even if the request fails. */
 export async function logout(): Promise<void> {
-  await stubDelay()
-  stubSessionEmail = null
   accessToken = null
+  await apiRequest<void>('/auth/logout/', { method: 'POST', withCredentials: true })
 }
 
-// --- In-memory stand-in (removed in task 3.4) -------------------------------
-
-const STUB_DELAY_MS = 400
-
-interface StubAccount {
-  user: User
-  password: string
+/** The logged-in user's profile. */
+export function getMe(): Promise<User> {
+  return authRequest<User>('/auth/me/')
 }
 
-const stubAccounts = new Map<string, StubAccount>([
-  [
-    'demo.customer@example.com',
-    {
-      user: { id: 1, email: 'demo.customer@example.com', first_name: 'Claire', last_name: 'Martin', phone_number: '', role: 'customer' },
-      password: 'Maison-Noir-26',
-    },
-  ],
-  [
-    'demo.admin@example.com',
-    {
-      user: { id: 2, email: 'demo.admin@example.com', first_name: 'Admin', last_name: 'Maison', phone_number: '', role: 'admin' },
-      password: 'Maison-Noir-26',
-    },
-  ],
-])
+// --- Authenticated requests ---------------------------------------------------
 
-let stubNextId = 3
-/** Stands in for the httpOnly refresh cookie. */
-let stubSessionEmail: string | null = null
+type SessionExpiredListener = () => void
 
-function startSession(user: User): AuthResponse {
-  stubSessionEmail = user.email
-  accessToken = `stub-access-token-${user.id}`
-  return { access: accessToken, user }
+const sessionExpiredListeners = new Set<SessionExpiredListener>()
+
+/**
+ * Registers a callback for when the session ends on its own (refresh token
+ * expired or revoked). Returns an unsubscribe function.
+ */
+export function onSessionExpired(listener: SessionExpiredListener): () => void {
+  sessionExpiredListeners.add(listener)
+  return () => {
+    sessionExpiredListeners.delete(listener)
+  }
 }
 
-function stubDelay(): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, STUB_DELAY_MS))
+/**
+ * Request to an endpoint that needs a logged-in user (contract: docs/api/auth.md).
+ * Sends the access token; on 401 (usually an expired access token) it calls
+ * refresh() ONCE and retries with the new token. If the refresh also fails with
+ * 401, the session is over: the token is cleared, listeners are notified and
+ * the 401 ApiError is raised. Other errors (403, network...) are raised as-is.
+ */
+export async function authRequest<T>(path: string, options: Omit<RequestOptions, 'token'> = {}): Promise<T> {
+  try {
+    return await apiRequest<T>(path, { ...options, token: accessToken })
+  } catch (error) {
+    if (!isUnauthorized(error)) throw error
+  }
+
+  try {
+    await refresh()
+  } catch (error) {
+    if (isUnauthorized(error)) {
+      sessionExpiredListeners.forEach((listener) => listener())
+    }
+    throw error
+  }
+
+  return apiRequest<T>(path, { ...options, token: accessToken })
+}
+
+/** Stores the access token from a successful response; clears it on failure. */
+async function startSession(request: Promise<AuthResponse>): Promise<AuthResponse> {
+  try {
+    const response = await request
+    accessToken = response.access
+    return response
+  } catch (error) {
+    accessToken = null
+    throw error
+  }
 }
