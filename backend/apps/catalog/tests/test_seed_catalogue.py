@@ -154,6 +154,16 @@ def test_seed_editorial_texts():
         )
         assert product.primary_image is not None
 
+    chambre = Collection.objects.get(slug="chambre-noire")
+    assert chambre.tagline == "Derrière le rideau rouge"
+    assert chambre.image.name == "collections/chambre-noire.jpg"
+    for sku in ("MN-CN-C", "MN-CN-D"):
+        product = Product.objects.get(sku=sku)
+        assert (product.notes_top, product.notes_heart, product.notes_base) == (
+            "Dry cedar", "Incense", "Soft leather",
+        )
+        assert product.primary_image is not None
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()

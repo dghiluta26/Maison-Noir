@@ -169,6 +169,14 @@ COLLECTIONS = [
         "description": (
             'Leather, incense and cedar: dark, intimate and quiet.'
         ),
+        "tagline": 'Derrière le rideau rouge',
+        "story": (
+            'Behind a velvet curtain in a portrait studio on the rue des Archives, a photographer opens '
+            'the leather case that belonged to her father. The clasp gives a small click. Inside, the '
+            'camera rests beside a cedar pencil worn flat on one side. A thread of incense drifts in from '
+            'the next room as she lifts the camera to her eye. Chambre Noire draws its fragrance from '
+            'that instant: the dry scent of cedar, a little smoke and the warmth leather takes from a hand.'
+        ),
         "launch_year": 2026,
         "sort_order": 11,
     },
@@ -724,7 +732,19 @@ PRODUCTS = [
         "price": "325.00",
         "stock_quantity": 5,
         "description": (
-            'Leather, incense and cedar in a dark, intimate scented candle.'
+            'The wooden wick crackles as dry cedar and incense give way to soft leather. Fine white veins '
+            'cross the low Rosso Levanto marble bowl and its matching lid. Two turns of burgundy silk hold '
+            'a wax seal above the hand-numbered label. The arch pressed into the seal is engraved on the '
+            'lid’s brass knob.'
+        ),
+        "tagline": 'Leather warmed by candlelight.',
+        "size": '400 g',
+        "burn_time": 'Approximately 80 hours',
+        "notes_top": 'Dry cedar',
+        "notes_heart": 'Incense',
+        "notes_base": 'Soft leather',
+        "ritual": (
+            'Lift the stone lid, unwind the silk cord and set the seal aside before lighting the wooden wick.'
         ),
     },
     {
@@ -736,8 +756,18 @@ PRODUCTS = [
         "price": "420.00",
         "stock_quantity": 5,
         "description": (
-            'A reed diffuser of leather, incense and cedar for quiet, shaded rooms.'
+            'Six dark rattan reeds lift the scent of cedar from a rounded Rosso Levanto marble bottle. '
+            'Incense lends a faint smoky edge, with supple leather underneath. A burgundy silk knot '
+            'suspends the wax seal beneath the arch-engraved champagne collar. The deckled edge of the '
+            'hand-numbered ivory label follows the curve of the stone.'
         ),
+        "tagline": 'Cedar at the study door.',
+        "size": '200 ml',
+        "burn_time": 'Approximately three months',
+        "notes_top": 'Dry cedar',
+        "notes_heart": 'Incense',
+        "notes_base": 'Soft leather',
+        "ritual": 'Set the bottle on a shelf near the study door and fan the six reeds above the marble.',
     },
     {
         "sku": 'MN-FM-H',
@@ -777,6 +807,7 @@ COLLECTION_IMAGES = {
     'soft-linen': 'collections/soft-linen.jpg',
     'ambre-parisien': 'collections/ambre-parisien.jpg',
     'l-appartement': 'collections/l-appartement.jpg',
+    'chambre-noire': 'collections/chambre-noire.jpg',
 }
 
 # product SKU -> images, the first one is the primary image
@@ -903,6 +934,24 @@ PRODUCT_IMAGES = {
             "file": 'products/l-appartement-reed-diffuser.jpg',
             "alt_text": (
                 'L’Appartement reed diffuser: rounded fluted travertine bottle with dark rattan reeds '
+                'and a champagne collar'
+            ),
+        },
+    ],
+    'MN-CN-C': [
+        {
+            "file": 'products/chambre-noire-scented-candle.jpg',
+            "alt_text": (
+                'Chambre Noire scented candle: low red Rosso Levanto marble bowl with a wooden wick, '
+                'its marble lid with a brass knob leaning beside it'
+            ),
+        },
+    ],
+    'MN-CN-D': [
+        {
+            "file": 'products/chambre-noire-reed-diffuser.jpg',
+            "alt_text": (
+                'Chambre Noire reed diffuser: rounded red Rosso Levanto marble bottle with six dark reeds '
                 'and a champagne collar'
             ),
         },
