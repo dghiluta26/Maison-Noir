@@ -1,7 +1,8 @@
 # Authentication API (contract)
 
 **Status:** agreed contract for P2 (task 3.1), **implemented in the backend** (task 3.3,
-`backend/apps/users/`). Frontend pages: task 3.2 (forms, no live calls) and 3.4 (integration).
+`backend/apps/users/`) and **connected in the frontend** (tasks 3.2 and 3.4:
+`frontend/src/services/authService.ts`, `context/AuthProvider.tsx`, `components/auth/RequireAuth.tsx`).
 
 Base URL (local): `http://localhost:8000/api/auth`
 

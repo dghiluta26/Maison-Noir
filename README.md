@@ -271,7 +271,7 @@ Frontend structure:
 
 ```text
 frontend/src/
-├── components/   # layout (Header, Footer), catalog (ProductCard, grid), auth (AuthCard) and ui building blocks
+├── components/   # layout (Header, Footer), catalog (ProductCard, grid), auth (AuthCard, RequireAuth) and ui building blocks
 ├── context/      # AuthProvider: the logged-in user for the whole app (read it with useAuth())
 ├── pages/        # one component per route
 ├── services/     # the only layer that talks to the API (catalogue, auth, API errors)
@@ -285,7 +285,9 @@ frontend/src/
 
 > Catalogue data is loaded from the Django REST API at `VITE_API_BASE_URL` (root `.env`) through `src/services/catalogService.ts`, which uses the shared request helper in `src/services/apiClient.ts`. Pages never call `fetch` directly. See `docs/api/catalogue.md` for the API contract.
 
-> Authentication (sign in, register, sign out) follows the contract in `docs/api/auth.md`. **Temporary:** until the auth API is connected (task 3.4), `src/services/authService.ts` is an in-memory stand-in with the same responses and errors. Demo accounts: `demo.customer@example.com` and `demo.admin@example.com`, password `Maison-Noir-26`. Accounts and the session are lost on page reload.
+> Authentication (sign in, register, sign out, `/account`) uses the live auth API through `src/services/authService.ts`; see `docs/api/auth.md` for the contract. The access token is kept in memory only and the refresh token in an httpOnly cookie, so the session survives a page reload. Requests that need a logged-in user go through `authRequest()`, which refreshes the access token once on `401` and retries. Pages that need a logged-in user are wrapped in `<RequireAuth>` (see `src/router.tsx`).
+>
+> Open the app at **http://localhost:5173**, not `127.0.0.1`: the refresh cookie only works when the frontend and the API are both on `localhost`. To test the admin role, create an account with `python manage.py createsuperuser`.
 
 ---
 
