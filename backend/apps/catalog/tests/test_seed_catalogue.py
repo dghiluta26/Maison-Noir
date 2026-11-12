@@ -86,6 +86,29 @@ def test_products_per_category():
     }
 
 
+def test_seed_editorial_texts():
+    run_seed()
+
+    collection = Collection.objects.get(slug="midnight-in-paris")
+    assert collection.tagline == "Minuit, rue du Bac"
+    assert collection.story.startswith("Just before midnight on the rue du Bac")
+
+    candle = Product.objects.get(sku="MN-NP-C")
+    assert candle.tagline == "A rose left by the window."
+    assert candle.size == "220 g"
+    assert candle.burn_time == "Approximately 50 hours"
+    assert (candle.notes_top, candle.notes_heart, candle.notes_base) == (
+        "Black tea leaf", "Rose petals", "Dry cedarwood",
+    )
+    assert candle.edition == "Édition Limitée · N° 047 / 500"
+
+    # Fields that were not provided stay empty.
+    fleur = Product.objects.get(sku="MN-FM-P")
+    assert fleur.notes_heart == "Jasmine and white florals"
+    assert fleur.materials == ""
+    assert fleur.burn_time == ""
+
+
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()
 

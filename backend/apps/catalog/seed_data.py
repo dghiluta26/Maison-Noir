@@ -7,6 +7,11 @@ names, SKUs, slugs, prices (lei), stock and descriptions.
 
 Collection `description` and `launch_year` are not part of that catalogue;
 they are DRAFT values and can be edited here or in the Django admin.
+
+Final editorial texts (collection tagline/story; product description, tagline,
+size, olfactory pyramid, materials, edition, ritual) replace the catalogue
+descriptions as they are written, starting with Midnight in Paris and
+Fleur de Minuit. Optional fields that are left out stay empty.
 """
 
 CATEGORIES = [
@@ -42,6 +47,14 @@ COLLECTIONS = [
         "slug": 'midnight-in-paris',
         "description": (
             'Black tea, rose and woods, expressed as the Midnight in Paris eau de parfum and the Nuit Parisienne candle.'
+        ),
+        "tagline": 'Minuit, rue du Bac',
+        "story": (
+            'Just before midnight on the rue du Bac, a bookbinder closes her ledger and sets a rose '
+            'between its pages. Her cup of black tea has gone cold. She opens the tall window, and the '
+            'cool air lifts the smell of cedar shavings from her worktable. Across the courtyard, a lamp '
+            'goes out beneath the zinc roofs. Midnight in Paris carries the bitterness of that last cup '
+            'onto the skin. Nuit Parisienne holds the rose a little longer in the room.'
         ),
         "launch_year": 2026,
         "sort_order": 3,
@@ -244,8 +257,22 @@ PRODUCTS = [
         "price": "750.00",
         "stock_quantity": 4,
         "description": (
-            'An eau de parfum of black tea, rose and woods — the personal expression of the Nuit Parisienne scent universe.'
+            'Black tea opens with a tannic edge. Rose softens it, and dry cedar lingers at the wrist. '
+            'The bevelled flacon fades from near-black lacquer to smoky glass beneath a fine gold '
+            'roofline. The arch engraved on the cap appears again on the burgundy wax seal, tied with '
+            'black silk above the hand-numbered ivory label.'
         ),
+        "tagline": 'The last cup of black tea.',
+        "size": '100 ml',
+        "notes_top": 'Black tea leaf',
+        "notes_heart": 'Rose petals',
+        "notes_base": 'Dry cedarwood',
+        "materials": (
+            'Lacquered glass with a heavy solid base, brushed champagne-gold cap, black silk cord '
+            'and deckle-edged cotton-rag paper.'
+        ),
+        "edition": 'Édition Limitée · N° 047 / 500',
+        "ritual": 'Mist the inside of each wrist and give the rose a moment to emerge through the tea.',
     },
     {
         "sku": 'MN-NP-C',
@@ -256,8 +283,23 @@ PRODUCTS = [
         "price": "340.00",
         "stock_quantity": 5,
         "description": (
-            'Black tea, rose and woods in a scented candle that shares its scent universe with Midnight in Paris.'
+            'As the wax warms, the dry scent of black tea gives way to rose and cedar. Gold lacquer '
+            'catches the flame inside the black glass tumbler. Two turns of black silk hold a burgundy '
+            'wax seal above the hand-numbered label. Lift the lid by its brass knob to feel the fine '
+            'arch engraved there.'
         ),
+        "tagline": 'A rose left by the window.',
+        "size": '220 g',
+        "burn_time": 'Approximately 50 hours',
+        "notes_top": 'Black tea leaf',
+        "notes_heart": 'Rose petals',
+        "notes_base": 'Dry cedarwood',
+        "materials": (
+            'Scented wax, straight-sided lacquered glass with a smoky base and champagne-gold rooftop '
+            'motif, gold interior, black glass lid, brass knob, black silk cord and ivory cotton-rag paper.'
+        ),
+        "edition": 'Édition Limitée · N° 047 / 500',
+        "ritual": 'Unwind the silk, set the seal aside and light the wick as you settle in to read.',
     },
     {
         "sku": 'MN-FM-P',
@@ -268,7 +310,18 @@ PRODUCTS = [
         "price": "680.00",
         "stock_quantity": 6,
         "description": (
-            'White florals, pepper and musk. A personal fragrance only, never translated into a home format.'
+            'Pepper gives the jasmine a cool edge before musk warms on the skin. Light travels through '
+            'the bevelled shoulders of the burgundy flacon and pools in its clear glass base. The house '
+            'arch is engraved on the brushed champagne cap and pressed into the wax seal. Burgundy silk '
+            'holds the seal just above the hand-numbered cotton-paper label.'
+        ),
+        "tagline": 'White petals against burgundy silk.',
+        "size": '100 ml',
+        "notes_top": 'Black pepper',
+        "notes_heart": 'Jasmine and white florals',
+        "notes_base": 'Soft musk',
+        "ritual": (
+            'Mist the inside of the wrist before dressing, letting the fragrance dry before lowering a sleeve.'
         ),
     },
     {
@@ -547,6 +600,12 @@ PRODUCT_IMAGES = {
         {
             "file": 'products/nuit-parisienne-scented-candle.jpg',
             "alt_text": 'Nuit Parisienne scented candle: black glass tumbler with a gold interior, beside its lid',
+        },
+    ],
+    'MN-FM-P': [
+        {
+            "file": 'products/fleur-de-minuit-eau-de-parfum.jpg',
+            "alt_text": 'Fleur de Minuit eau de parfum: burgundy glass flacon with a champagne-gold cap and a wax seal',
         },
     ],
 }
