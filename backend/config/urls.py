@@ -9,6 +9,8 @@ urlpatterns = [
     path("api/", include("apps.core.urls")),
     path("api/", include("apps.catalog.urls")),
     path("api/auth/", include("apps.users.urls")),
+    # Admin-only API (role "admin"); customers get 403.
+    path("api/admin/", include("apps.catalog.admin_urls")),
 ]
 
 if settings.DEBUG:
