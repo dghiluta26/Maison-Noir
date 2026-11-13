@@ -59,7 +59,8 @@ def test_product_list_item_shape(api):
     assert item["price"] == "590.00"
     assert item["category"] == {"id": item["category"]["id"], "name": "Fine Fragrances", "slug": "fine-fragrances"}
     assert item["collection"]["slug"] == "after-hours"
-    assert item["primary_image"] is None
+    assert item["primary_image"]["image"].endswith("/media/products/after-hours-eau-de-parfum.jpg")
+    assert item["primary_image"]["is_primary"] is True
     assert item["in_stock"] is True
     assert item["stock_quantity"] == 8
 
@@ -154,6 +155,7 @@ def test_inactive_product_detail_returns_404(api):
 
 def test_images_are_returned_as_absolute_urls(api):
     product = Product.objects.get(sku="MN-AH-P")
+    product.images.all().delete()  # start from no images, whatever the seed contains
     ProductImage.objects.create(
         product=product,
         image=SimpleUploadedFile("bottle.gif", TINY_GIF, "image/gif"),

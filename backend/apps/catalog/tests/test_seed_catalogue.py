@@ -192,6 +192,19 @@ def test_seed_editorial_texts():
     assert tray.notes_top == ""  # unscented object
     assert tray.primary_image.image.name == "products/cafe-creme-le-plateau-cafe.jpg"
 
+    after_hours = Collection.objects.get(slug="after-hours")
+    assert after_hours.tagline == "Quand le salon s’apaise"
+    assert after_hours.image.name == "collections/after-hours.jpg"
+    for sku in ("MN-AH-P", "MN-AH-C", "MN-AH-D"):
+        product = Product.objects.get(sku=sku)
+        assert (product.notes_top, product.notes_heart, product.notes_base) == (
+            "Bergamot", "Iris", "Musk",
+        )
+        assert product.primary_image is not None
+    nocturne = Product.objects.get(sku="MN-AH-O")
+    assert nocturne.materials.startswith("Honed dark smoked stone")
+    assert nocturne.primary_image.image.name == "products/after-hours-nocturne-tray.jpg"
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()

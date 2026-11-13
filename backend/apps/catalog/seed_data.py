@@ -30,6 +30,15 @@ COLLECTIONS = [
         "description": (
             'Bergamot, iris and musk, composed for the late hours of a Parisian evening.'
         ),
+        "tagline": 'Quand le salon s’apaise',
+        "story": (
+            'At half past ten in an apartment on the boulevard Raspail, a guest folds the evening '
+            'programme and leaves it beside her gloves. Someone twists a strip of bergamot peel over the '
+            'last drink. Its bright scent briefly fills the room before settling into the powdery trace '
+            'of iris on a silk scarf. After Hours follows that movement from freshness to intimacy. '
+            'Bergamot opens the composition, iris gives it a soft, dry heart, and musk lingers as the '
+            'conversation falls quiet.'
+        ),
         "launch_year": 2026,
         "sort_order": 1,
     },
@@ -235,8 +244,20 @@ PRODUCTS = [
         "price": "590.00",
         "stock_quantity": 8,
         "description": (
-            'An eau de parfum of bergamot, iris and musk, composed for the late hours of a Parisian evening.'
+            'Bright bergamot settles into powdery iris, with soft musk lingering close to the skin. The '
+            'bevelled smoked-espresso flacon rests on a heavy glass base beneath an arch-engraved '
+            'champagne cap. Burgundy silk suspends a wax seal above the hand-numbered cotton-paper label, '
+            'catching a faint wine-coloured reflection in the glass.'
         ),
+        "tagline": 'Bergamot fading into iris and musk.',
+        "size": '100 ml',
+        "notes_top": 'Bergamot',
+        "notes_heart": 'Iris',
+        "notes_base": 'Musk',
+        "materials": (
+            'Smoked glass, brushed champagne-gold cap, burgundy silk, wax seal and ivory cotton-rag paper.'
+        ),
+        "ritual": 'Mist the inside of each wrist and let the iris emerge as the bergamot softens.',
     },
     {
         "sku": 'MN-AH-C',
@@ -247,7 +268,22 @@ PRODUCTS = [
         "price": "290.00",
         "stock_quantity": 7,
         "description": (
-            'The After Hours accord of bergamot, iris and musk, poured into a scented candle for quiet evenings at home.'
+            'Bergamot lifts from the warming wax before iris and musk settle through the room. The '
+            'straight-sided smoked-glass vessel has a substantial base and a brushed champagne lid '
+            'engraved with the house arch. Two turns of burgundy silk carry a wax seal above its '
+            'hand-numbered ivory label.'
+        ),
+        "tagline": 'The last light in the salon.',
+        "size": '220 g',
+        "burn_time": 'Approximately 50 hours',
+        "notes_top": 'Bergamot',
+        "notes_heart": 'Iris',
+        "notes_base": 'Musk',
+        "materials": (
+            'Scented wax, cotton wick, smoked glass, champagne-gold lid, burgundy silk and cotton-rag paper.'
+        ),
+        "ritual": (
+            'Lift the lid, unwind the silk and set the seal aside before lighting the wick at dusk.'
         ),
     },
     {
@@ -259,7 +295,23 @@ PRODUCTS = [
         "price": "390.00",
         "stock_quantity": 6,
         "description": (
-            'A reed diffuser carrying bergamot, iris and musk gently through the room.'
+            'Six dark rattan reeds carry bergamot and iris over a quiet base of musk. Their slender '
+            'silhouettes remain visible through the rounded smoked-espresso bottle. Burgundy silk holds a '
+            'small wax seal beneath the arch-engraved champagne collar, falling over the upper edge of the '
+            'hand-numbered cotton-paper label.'
+        ),
+        "tagline": 'Iris at the drawing-room door.',
+        "size": '200 ml',
+        "burn_time": 'Approximately three months',
+        "notes_top": 'Bergamot',
+        "notes_heart": 'Iris',
+        "notes_base": 'Musk',
+        "materials": (
+            'Smoked glass, brushed champagne-gold collar, rattan reeds, burgundy silk and ivory '
+            'cotton-rag paper.'
+        ),
+        "ritual": (
+            'Fan the reeds on a hallway console and turn them occasionally to refresh the fragrance.'
         ),
     },
     {
@@ -271,7 +323,15 @@ PRODUCTS = [
         "price": "420.00",
         "stock_quantity": 4,
         "description": (
-            'A smoked-stone tray designed to hold the After Hours candle and reed diffuser.'
+            'Carved from honed dark smoked stone, Nocturne gathers the After Hours candle and diffuser '
+            'within a low rectangular rim. Subtle mineral markings cross its matte surface, while a '
+            'discreet champagne Maison Noir signature follows the front edge. Its substantial base gives '
+            'the arrangement a grounded presence on a console or bedside table.'
+        ),
+        "tagline": 'A stone setting for evening rituals.',
+        "materials": 'Honed dark smoked stone with champagne lettering.',
+        "ritual": (
+            'Arrange the candle and diffuser together, leaving a little space around each glass vessel.'
         ),
     },
     {
@@ -932,6 +992,7 @@ PRODUCTS = [
 
 # collection slug -> picture shown in the collection page hero
 COLLECTION_IMAGES = {
+    'after-hours': 'collections/after-hours.jpg',
     'midnight-in-paris': 'collections/midnight-in-paris.jpg',
     'paris-after-dark': 'collections/paris-after-dark.jpg',
     'soft-linen': 'collections/soft-linen.jpg',
@@ -943,6 +1004,42 @@ COLLECTION_IMAGES = {
 
 # product SKU -> images, the first one is the primary image
 PRODUCT_IMAGES = {
+    'MN-AH-P': [
+        {
+            "file": 'products/after-hours-eau-de-parfum.jpg',
+            "alt_text": (
+                'After Hours eau de parfum: bevelled smoked-espresso glass flacon with a champagne-gold '
+                'cap and a burgundy wax seal'
+            ),
+        },
+    ],
+    'MN-AH-C': [
+        {
+            "file": 'products/after-hours-scented-candle.jpg',
+            "alt_text": (
+                'After Hours scented candle: straight-sided smoked glass vessel tied with burgundy silk, '
+                'its champagne lid leaning beside it'
+            ),
+        },
+    ],
+    'MN-AH-D': [
+        {
+            "file": 'products/after-hours-reed-diffuser.jpg',
+            "alt_text": (
+                'After Hours reed diffuser: rounded smoked-espresso glass bottle with six dark reeds '
+                'and a champagne-gold collar'
+            ),
+        },
+    ],
+    'MN-AH-O': [
+        {
+            "file": 'products/after-hours-nocturne-tray.jpg',
+            "alt_text": (
+                'Nocturne Tray: low rectangular tray in honed dark smoked stone with a champagne '
+                'Maison Noir signature on its front edge'
+            ),
+        },
+    ],
     'MN-MP-P': [
         {
             "file": 'products/midnight-in-paris-eau-de-parfum.jpg',
