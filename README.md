@@ -2,7 +2,7 @@
 
 **Parisian Fragrance & Living**
 
-MAISON NOIR is a premium e-commerce project developed for the **E-Commerce Semester Project, Academic Year 2026–2027**.
+MAISON NOIR is a premium e-commerce project developed for the **E-Commerce Semester Project, Academic Year 2026-2027**.
 
 The application represents a curated fragrance and lifestyle store inspired by Parisian luxury. The catalogue contains **32 products** across personal fragrances, scented candles, reed diffusers, design objects and limited gift sets.
 
@@ -294,53 +294,44 @@ frontend/src/
 
 ## Task Plan and Status
 
+The tasks follow the requirement codes of the course's Project Specification (section 2.2 for A1–A12, section 2.3 for B1–B7). Owners are those agreed in the P1 presentation (6 mandatory requirements each).
+
 Status values:
 
-- **Done**: implemented and merged into `main`
-- **To do**: still has to be done before Presentation 2
-- **Planned**: scheduled after Presentation 2
+- **Done**: fully implemented and merged into `main`
+- **In progress**: partly implemented; the status says what is still missing
+- **Planned**: not started yet, scheduled for P3
 
-### Presentation 2: prototype
+### Mandatory requirements (A1–A12)
 
 | No. | Task | Assigned to | Status |
 |---:|---|---|---|
-| 0.1 | Agree the final catalogue, product fields, initial API shape and ERD draft | Alexia + Denis | Done |
-| 0.2 | Create the GitHub repository, invite the collaborator, configure branch protection and the issue board | Denis | Done |
-| 0.3 | Create the repository structure, `.gitignore`, `.env.example`, initial README and Docker Compose | Denis | Done |
-| 0.4 | Initialise Django, DRF, the PostgreSQL connection and the health endpoint | Denis | Done |
-| 1.1 | Initialise React + TypeScript and create the base folders | Alexia | Done |
-| 1.2 | Create the MAISON NOIR design tokens, layout, Header, Footer and route skeleton | Alexia | Done |
-| 1.3 | Build `ProductCard`, the catalogue grid and the product page with temporary mock data | Alexia | Done |
-| 2.1 | Create the custom `User` model and the `users` and `catalog` apps | Denis | Done |
-| 2.2 | Implement `Category`, `Collection`, `Product`, `ProductImage`, constraints and migrations | Denis | Done |
-| 2.3 | Implement the repeatable `seed_catalogue` command for the 32 products | Denis | Done |
-| 2.4 | Implement and document the catalogue endpoints | Denis | Done |
-| 2.5 | Connect the catalogue and product pages to the live API and remove the mock data | Alexia | Done |
-| 2.6 | Resolve integration feedback: serializers, queries, product images, CORS, missing fields | Denis | Done (no defects found) |
-| 3.1 | Decide and document the JWT auth contract | Denis | Done |
-| 3.2 | Build the Register and Login pages, form validation and header states (no live calls) | Denis | Done |
-| 3.3 | Implement the auth endpoints, password handling, JWT configuration, permissions and tests | Denis | Done |
-| 3.4 | Connect the forms to the auth API: header state, logout, redirects, protected `/account` page | Alexia | Done |
-| 3.5 | Fix auth integration issues and block customers from admin-only endpoints (Argon2 hashing, `/api/admin/products/`) | Denis | Done |
-| 4.1 | Fresh-clone setup test: containers, migrations, seed, backend, frontend | Denis (Alexia repeats it) | To do |
-| 4.2 | Test the responsive UI (360 px), loading and error states, and the P2 demo path | Alexia | To do |
-| 4.3 | Complete the baseline automated tests and update the README and API documentation | Denis | To do |
-| 4.4 | Merge the approved PRs, rehearse the demo and tag `P2` | Alexia + Denis | To do |
+| A1 | Product catalogue: paginated product list (at most 24 products per page), a page for each category, and a product page with name, description, price, images and availability | Alexia | In progress: product page and product list done; missing category pages and 24-per-page pagination |
+| A2 | Basic search: text search on product names with correct results and a clear message when nothing is found | Denis | In progress: backend search (`?search=`) done; missing the search box and "no results" message in the storefront |
+| A3 | Shopping cart: add, update and remove products; total recalculated on the server; quantities above stock rejected; an authenticated user's cart persists after logout | Alexia | Planned |
+| A4 | User accounts: registration, login and logout, passwords stored with bcrypt or Argon2, at least one saved delivery address | Denis | In progress: registration, login, logout and Argon2 done; missing saved delivery address |
+| A5 | Checkout: address, delivery method (at least two, with different costs), order summary and payment; confirmation page with the order number | Alexia | Planned |
+| A6 | Sandbox payment: an order becomes Paid only on the payment processor's confirmation (Stripe webhook), not the browser redirect; a failed payment leaves it Unpaid | Alexia | Planned |
+| A7 | Stock management: stock decreases when payment is confirmed and is restored when an order is cancelled; two customers cannot buy the last unit at the same time | Denis | Planned |
+| A8 | Order history: customers see their orders with date, products, total and status | Alexia | In progress: account page design with sample orders; missing the orders API |
+| A9 | Administration panel: separate admin role; product and category CRUD with image upload; order list filterable by status with transitions New → Paid → Shipped → Delivered, or Cancelled | Denis | In progress: admin role and admin products API done; missing category CRUD, orders and the React admin panel |
+| A10 | Basic security: server-side validation, CSRF protection, ORM or parameterised queries; admin pages and API endpoints blocked on the server for regular users | Denis | In progress: validation, ORM and server-side admin blocking (403) done; to be extended to every new endpoint |
+| A11 | Responsive design: all customer-facing pages usable on a 360 px wide screen | Alexia | In progress: current pages are mobile-first; to be checked for every new page |
+| A12 | Automated tests: at least 10 tests, run with a single command, covering at least the cart, total calculation and payment confirmation | Denis | In progress: 107 backend tests run with `pytest`; missing cart, total and payment tests |
 
-### After Presentation 2
+### Bonus features (B1–B7)
 
-| No. | Task | Requirement | Assigned to | Status |
+| No. | Task | Points | Assigned to | Status |
 |---:|---|---|---|---|
-| 5.1 | Filtered search and sorting | A2, B1 | Denis (API) + Alexia (UI) | Planned |
-| 5.2 | Persistent cart and delivery methods | A3 | Alexia | Planned |
-| 5.3 | Wishlist | B7 | Alexia + Denis | Planned |
-| 5.4 | Orders, discount codes and checkout | A5, B5 | Alexia | Planned |
-| 5.5 | Stripe test mode and webhook processing | A6, A7 | Alexia | Planned |
-| 5.6 | Transactional email through Mailtrap | B6 | Alexia + Denis | Planned |
-| 5.7 | Reviews and ratings, restricted to verified purchases | B3 | Alexia + Denis | Planned |
-| 5.8 | Admin management and sales dashboard | A9, B4 | Denis | Planned |
-| 5.9 | Recommendations based on category, collection and order data | B2 | Alexia + Denis | Planned |
-| 5.10 | Accessibility, responsiveness, security checks and more test coverage | A10, A11, A12 | Alexia + Denis | Planned |
+| B1 | Filtered search: combinable filters by category, price range and availability, sorting by price and date added, filters kept in the URL | 5 | Not assigned | Planned |
+| B2 | Recommendations: "Similar products" or "Frequently bought together", computed from data (category, attributes or orders) | 4 | Not assigned | Planned |
+| B3 | Reviews and ratings: only buyers can review; average rating in the catalogue; administrators can hide a review | 4 | Not assigned | Planned |
+| B4 | Sales dashboard: daily sales chart, top 5 products and average order value for a selected time interval | 3 | Not assigned | Planned |
+| B5 | Discount codes: percentage or fixed amount, with expiry date and maximum number of uses, validated on the server | 3 | Not assigned | Planned |
+| B6 | Transactional email: order confirmation email sent through Mailtrap | 5 | Not assigned | Planned |
+| B7 | Wishlist: favourites list for authenticated users, with the option to move items to the cart | 2 | Not assigned | In progress: account page design with sample favourites; missing the wishlist API |
+
+Bonus points count only once A1–A12 work, up to a maximum of 20. Order of work agreed at P2: B1, B6, B2, B3, then B4, B5, B7.
 
 ---
 
