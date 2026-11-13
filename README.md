@@ -271,10 +271,11 @@ Frontend structure:
 
 ```text
 frontend/src/
-├── components/   # layout (Header, Footer), catalog (ProductCard, grid), auth (AuthCard, RequireAuth) and ui building blocks
+├── components/   # layout (Header, Footer), catalog (ProductCard, grid), auth (AuthCard, RequireAuth), account (OrderHistory) and ui building blocks
 ├── context/      # AuthProvider: the logged-in user for the whole app (read it with useAuth())
+├── mocks/        # TEMPORARY sample favourites/orders for the account preview; only accountService imports it
 ├── pages/        # one component per route
-├── services/     # the only layer that talks to the API (catalogue, auth, API errors)
+├── services/     # the only layer that talks to the API (catalogue, auth, account, API errors)
 ├── hooks/        # reusable React hooks (e.g. useAsync for loading/error states)
 ├── types/        # TypeScript interfaces mirroring the REST API responses
 ├── styles/       # Tailwind CSS entry point and MAISON NOIR design tokens
