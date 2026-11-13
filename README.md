@@ -322,10 +322,7 @@ Status values:
 | 3.3 | Implement the auth endpoints, password handling, JWT configuration, permissions and tests | Denis | Done |
 | 3.4 | Connect the forms to the auth API: header state, logout, redirects, protected `/account` page | Alexia | Done |
 | 3.5 | Fix auth integration issues and block customers from admin-only endpoints (Argon2 hashing, `/api/admin/products/`) | Denis | Done |
-| 4.1 | Fresh-clone setup test: containers, migrations, seed, backend, frontend | Denis (Alexia repeats it) | To do |
-| 4.2 | Test the responsive UI (360 px), loading and error states, and the P2 demo path | Alexia | To do |
-| 4.3 | Complete the baseline automated tests and update the README and API documentation | Denis | To do |
-| 4.4 | Merge the approved PRs, rehearse the demo and tag `P2` | Alexia + Denis | To do |
+
 
 ### After Presentation 2
 
