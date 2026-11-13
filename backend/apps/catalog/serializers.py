@@ -29,9 +29,12 @@ class CollectionSerializer(serializers.ModelSerializer):
 
 
 class CollectionListSerializer(serializers.ModelSerializer):
+    # Absolute URL, or null when the collection has no picture.
+    image = serializers.ImageField(read_only=True)
+
     class Meta:
         model = Collection
-        fields = ["id", "name", "slug", "description", "launch_year"]
+        fields = ["id", "name", "slug", "description", "tagline", "story", "image", "launch_year"]
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -79,7 +82,20 @@ class ProductDetailSerializer(ProductSummarySerializer):
     images = ProductImageSerializer(many=True, read_only=True)
 
     class Meta(ProductSummarySerializer.Meta):
-        fields = ProductSummarySerializer.Meta.fields + ["description", "images"]
+        fields = ProductSummarySerializer.Meta.fields + [
+            "description",
+            "tagline",
+            "size",
+            "burn_time",
+            "includes",
+            "notes_top",
+            "notes_heart",
+            "notes_base",
+            "materials",
+            "edition",
+            "ritual",
+            "images",
+        ]
 
 
 class AdminProductSerializer(ProductDetailSerializer):

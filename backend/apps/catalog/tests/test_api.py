@@ -18,6 +18,11 @@ SUMMARY_FIELDS = {
     "id", "sku", "name", "slug", "price", "category", "collection",
     "primary_image", "in_stock", "stock_quantity",
 }
+# Optional product-page details, returned by the detail endpoint only.
+DETAIL_TEXT_FIELDS = {
+    "tagline", "size", "burn_time", "includes", "notes_top", "notes_heart", "notes_base",
+    "materials", "edition", "ritual",
+}
 
 
 @pytest.fixture(autouse=True)
@@ -54,7 +59,8 @@ def test_product_list_item_shape(api):
     assert item["price"] == "590.00"
     assert item["category"] == {"id": item["category"]["id"], "name": "Fine Fragrances", "slug": "fine-fragrances"}
     assert item["collection"]["slug"] == "after-hours"
-    assert item["primary_image"] is None
+    assert item["primary_image"]["image"].endswith("/media/products/after-hours-eau-de-parfum.jpg")
+    assert item["primary_image"]["is_primary"] is True
     assert item["in_stock"] is True
     assert item["stock_quantity"] == 8
 
@@ -127,11 +133,14 @@ def test_product_detail_by_slug(api):
 
     assert response.status_code == 200
     body = response.json()
-    assert set(body) == SUMMARY_FIELDS | {"description", "images"}
+    assert set(body) == SUMMARY_FIELDS | DETAIL_TEXT_FIELDS | {"description", "images"}
     assert body["sku"] == "MN-CC-G"
     assert body["price"] == "1590.00"
-    assert body["description"].startswith("The complete Cafe Creme collection")
-    assert body["images"] == []
+    assert body["description"].startswith("An espresso linen case opens")
+    assert body["includes"].endswith("Le Plateau Café")
+    assert len(body["images"]) == 1
+    assert body["images"][0]["is_primary"] is True
+    assert body["images"][0]["image"].endswith("/media/products/cafe-creme-edition-gift-set.jpg")
 
 
 def test_unknown_slug_returns_404(api):
@@ -146,6 +155,7 @@ def test_inactive_product_detail_returns_404(api):
 
 def test_images_are_returned_as_absolute_urls(api):
     product = Product.objects.get(sku="MN-AH-P")
+    product.images.all().delete()  # start from no images, whatever the seed contains
     ProductImage.objects.create(
         product=product,
         image=SimpleUploadedFile("bottle.gif", TINY_GIF, "image/gif"),
@@ -188,4 +198,4 @@ def test_collection_list(api):
 
     assert len(body) == 13
     assert body[0]["slug"] == "after-hours"
-    assert set(body[0]) == {"id", "name", "slug", "description", "launch_year"}
+    assert set(body[0]) == {"id", "name", "slug", "description", "tagline", "story", "image", "launch_year"}
