@@ -74,6 +74,15 @@ COLLECTIONS = [
         "description": (
             'Coffee, vanilla and tonka bean, inspired by a slow Parisian morning.'
         ),
+        "tagline": 'Un matin au comptoir',
+        "story": (
+            'The first café crème of the morning arrives at the zinc counter of a small café in '
+            'Saint-Germain-des-Prés. For a moment, the milk leaves a pale curl on the surface. A spoon '
+            'touches porcelain. The coffee is still dark at the edges, and that first roasted note is '
+            'where Café Crème begins. Vanilla softens its bitterness, while tonka bean leaves a dry, '
+            'almond-like warmth. The collection carries those sensations into warm crème glass, brushed '
+            'champagne metal and the deep espresso glaze of Le Plateau Café.'
+        ),
         "launch_year": 2026,
         "sort_order": 5,
     },
@@ -398,7 +407,21 @@ PRODUCTS = [
         "price": "620.00",
         "stock_quantity": 7,
         "description": (
-            'An eau de parfum of coffee, vanilla and tonka bean, inspired by a slow Parisian morning.'
+            'Roasted coffee opens with a gentle bitterness, softened by vanilla and the almond-like warmth '
+            'of tonka bean. The crème glass flacon rests on a substantial clear base beneath an '
+            'arch-engraved champagne cap. Espresso silk suspends a burgundy wax seal above the '
+            'hand-numbered ivory label.'
+        ),
+        "tagline": 'The warmth of the first cup.',
+        "size": '100 ml',
+        "notes_top": 'Roasted coffee',
+        "notes_heart": 'Vanilla',
+        "notes_base": 'Tonka bean',
+        "materials": (
+            'Crème glass, brushed champagne-gold cap, espresso silk, burgundy wax and cotton-rag paper.'
+        ),
+        "ritual": (
+            'Mist the inside of each wrist and allow the coffee to soften into vanilla as the fragrance warms.'
         ),
     },
     {
@@ -410,7 +433,24 @@ PRODUCTS = [
         "price": "300.00",
         "stock_quantity": 8,
         "description": (
-            'Coffee, vanilla and tonka bean in a scented candle for unhurried mornings at home.'
+            'Coffee rises gently from the warming wax, followed by vanilla and a lingering trace of tonka '
+            'bean. The straight-sided crème glass tumbler has a heavy clear base and an arch-engraved '
+            'champagne lid. Two turns of espresso silk carry a burgundy wax seal above its hand-numbered '
+            'cotton-paper label.'
+        ),
+        "tagline": 'A slow morning, held in wax.',
+        "size": '220 g',
+        "burn_time": 'Approximately 50 hours',
+        "notes_top": 'Roasted coffee',
+        "notes_heart": 'Vanilla',
+        "notes_base": 'Tonka bean',
+        "materials": (
+            'Scented wax, cotton wick, crème glass, brushed champagne-gold lid, espresso silk and '
+            'cotton-rag paper.'
+        ),
+        "ritual": (
+            'Lift the lid, unwind the silk and set the seal aside before lighting the wick during a quiet '
+            'morning at home.'
         ),
     },
     {
@@ -422,8 +462,22 @@ PRODUCTS = [
         "price": "395.00",
         "stock_quantity": 6,
         "description": (
-            'A reed diffuser of coffee, vanilla and tonka bean for kitchens, studies and living rooms.'
+            'Roasted coffee greets you first, with soft vanilla and tonka bean bringing warmth to the room. '
+            'Six dark rattan reeds rise from a rounded crème glass bottle. An arch-engraved champagne '
+            'collar crowns the vessel, while espresso silk holds a burgundy wax seal just above the '
+            'hand-numbered label.'
         ),
+        "tagline": 'Coffee drifting through an open doorway.',
+        "size": '200 ml',
+        "burn_time": 'Approximately three months',
+        "notes_top": 'Roasted coffee',
+        "notes_heart": 'Vanilla',
+        "notes_base": 'Tonka bean',
+        "materials": (
+            'Crème glass, brushed champagne-gold collar, rattan reeds, espresso silk, burgundy wax and '
+            'cotton-rag paper.'
+        ),
+        "ritual": 'Fan the reeds on an entrance console and turn them occasionally to refresh the fragrance.',
     },
     {
         "sku": 'MN-CC-O',
@@ -434,7 +488,15 @@ PRODUCTS = [
         "price": "390.00",
         "stock_quantity": 5,
         "description": (
-            'An espresso ceramic tray designed to hold the Cafe Creme candle and reed diffuser.'
+            'A deep espresso glaze pools across the gently irregular surface of this oval ceramic tray. Its '
+            'raised rim gathers the Café Crème candle and diffuser into one arrangement, with room for the '
+            'small objects of everyday life. A discreet champagne-gold Maison Noir signature follows the '
+            'curve of the front edge.'
+        ),
+        "tagline": 'A place for the morning ritual.',
+        "materials": 'Glazed espresso ceramic with champagne-gold lettering.',
+        "ritual": (
+            'Arrange the candle and diffuser together, letting the dark glaze frame their warm crème glass.'
         ),
     },
     {
@@ -446,7 +508,26 @@ PRODUCTS = [
         "price": "1590.00",
         "stock_quantity": 2,
         "description": (
-            'The complete Cafe Creme collection — eau de parfum, scented candle, reed diffuser and Le Plateau Cafe tray. One of only two MAISON NOIR gift sets.'
+            'An espresso linen case opens to reveal the eau de parfum, candle and capped reed diffuser '
+            'alongside Le Plateau Café. Coffee, vanilla and tonka bean connect the three fragrances. '
+            'Arch-engraved metalwork, burgundy wax seals and hand-numbered labels finish the crème glass '
+            'vessels, with the reeds bundled separately in the fitted ivory insert.'
+        ),
+        "tagline": 'The complete Café Crème ritual.',
+        "includes": (
+            '100 ml eau de parfum · 220 g candle with lid · 200 ml reed diffuser with separate reeds · '
+            'Le Plateau Café'
+        ),
+        "notes_top": 'Roasted coffee',
+        "notes_heart": 'Vanilla',
+        "notes_base": 'Tonka bean',
+        "materials": (
+            'Crème glass, champagne metalwork, glazed espresso ceramic, silk and an espresso '
+            'linen-covered presentation case.'
+        ),
+        "ritual": (
+            'Arrange the home fragrances on the ceramic tray, then finish the morning with a light mist '
+            'of the eau de parfum.'
         ),
     },
     {
@@ -857,6 +938,7 @@ COLLECTION_IMAGES = {
     'ambre-parisien': 'collections/ambre-parisien.jpg',
     'l-appartement': 'collections/l-appartement.jpg',
     'chambre-noire': 'collections/chambre-noire.jpg',
+    'cafe-creme': 'collections/cafe-creme.jpg',
 }
 
 # product SKU -> images, the first one is the primary image
@@ -1020,6 +1102,42 @@ PRODUCT_IMAGES = {
             "alt_text": (
                 'Santal Residence Home Ritual Duo: dark brown Emperador marble candle and reed diffuser '
                 'with a walnut ring, on a matching marble tray'
+            ),
+        },
+    ],
+    'MN-CC-P': [
+        {
+            "file": 'products/cafe-creme-eau-de-parfum.jpg',
+            "alt_text": (
+                'Café Crème eau de parfum: crème glass flacon with a clear base, a champagne-gold cap '
+                'and a burgundy wax seal'
+            ),
+        },
+    ],
+    'MN-CC-C': [
+        {
+            "file": 'products/cafe-creme-scented-candle.jpg',
+            "alt_text": (
+                'Café Crème scented candle: straight-sided crème glass tumbler tied with espresso silk, '
+                'its champagne-gold lid leaning beside it'
+            ),
+        },
+    ],
+    'MN-CC-D': [
+        {
+            "file": 'products/cafe-creme-reed-diffuser.jpg',
+            "alt_text": (
+                'Café Crème reed diffuser: rounded crème glass bottle with six dark reeds '
+                'and a champagne-gold collar'
+            ),
+        },
+    ],
+    'MN-CC-G': [
+        {
+            "file": 'products/cafe-creme-edition-gift-set.jpg',
+            "alt_text": (
+                'Café Crème Edition gift set: espresso linen case holding the eau de parfum, candle, '
+                'reed diffuser, bundled reeds and the espresso ceramic tray'
             ),
         },
     ],

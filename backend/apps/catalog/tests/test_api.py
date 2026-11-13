@@ -135,8 +135,11 @@ def test_product_detail_by_slug(api):
     assert set(body) == SUMMARY_FIELDS | DETAIL_TEXT_FIELDS | {"description", "images"}
     assert body["sku"] == "MN-CC-G"
     assert body["price"] == "1590.00"
-    assert body["description"].startswith("The complete Cafe Creme collection")
-    assert body["images"] == []
+    assert body["description"].startswith("An espresso linen case opens")
+    assert body["includes"].endswith("Le Plateau Café")
+    assert len(body["images"]) == 1
+    assert body["images"][0]["is_primary"] is True
+    assert body["images"][0]["image"].endswith("/media/products/cafe-creme-edition-gift-set.jpg")
 
 
 def test_unknown_slug_returns_404(api):

@@ -178,6 +178,19 @@ def test_seed_editorial_texts():
     assert santal_duo.includes.endswith("Emperador marble tray")
     assert santal_duo.primary_image.image.name == "products/santal-residence-home-ritual-duo.jpg"
 
+    cafe = Collection.objects.get(slug="cafe-creme")
+    assert cafe.tagline == "Un matin au comptoir"
+    assert cafe.image.name == "collections/cafe-creme.jpg"
+    for sku in ("MN-CC-P", "MN-CC-C", "MN-CC-D", "MN-CC-G"):
+        product = Product.objects.get(sku=sku)
+        assert (product.notes_top, product.notes_heart, product.notes_base) == (
+            "Roasted coffee", "Vanilla", "Tonka bean",
+        )
+        assert product.primary_image is not None
+    tray = Product.objects.get(sku="MN-CC-O")
+    assert tray.materials.startswith("Glazed espresso ceramic")
+    assert tray.notes_top == ""  # unscented object
+
 
 def test_seed_images_are_copied_and_linked(temporary_media):
     run_seed()
