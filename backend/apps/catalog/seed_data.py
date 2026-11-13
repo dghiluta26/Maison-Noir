@@ -48,6 +48,15 @@ COLLECTIONS = [
         "description": (
             'Neroli, amber and sandalwood: warm, luminous and golden, like the last light over Paris.'
         ),
+        "tagline": 'La lumière sur la Seine',
+        "story": (
+            'Late afternoon light reaches the windows of an apartment on the quai Voltaire. A woman '
+            'unfastens her bracelet and leaves it in an onyx dish beside a book. The room still carries '
+            'the bright floral scent of neroli from her wrist. As the windows turn amber, sandalwood '
+            'comes through, warm against the grain of the parquet. Golden Hour gathers that gradual '
+            'change into a fragrance for skin and home, held in honey-coloured glass and stone that '
+            'catches the light.'
+        ),
         "launch_year": 2026,
         "sort_order": 2,
     },
@@ -343,8 +352,20 @@ PRODUCTS = [
         "price": "570.00",
         "stock_quantity": 10,
         "description": (
-            'An eau de parfum of neroli, amber and sandalwood — warm, luminous and golden.'
+            'Neroli opens with a fresh floral brightness, settling into amber and smooth sandalwood. '
+            'Light travels through the bevelled flacon and its substantial glass base. A fine champagne '
+            'silk cord carries a burgundy wax seal beneath the arch-engraved cap, above the numbered '
+            'ivory cotton-paper label.'
         ),
+        "tagline": 'Neroli warmed by amber and sandalwood.',
+        "size": '100 ml',
+        "notes_top": 'Neroli',
+        "notes_heart": 'Amber',
+        "notes_base": 'Sandalwood',
+        "materials": (
+            'Heavy glass, brushed champagne-gold cap, champagne silk, burgundy wax and cotton-rag paper.'
+        ),
+        "ritual": 'Mist the inside of each wrist and let the sandalwood emerge as the neroli softens.',
     },
     {
         "sku": 'MN-GH-C',
@@ -355,7 +376,22 @@ PRODUCTS = [
         "price": "280.00",
         "stock_quantity": 8,
         "description": (
-            'Neroli, amber and sandalwood in a scented candle that brings the warmth of the golden hour indoors.'
+            'Neroli rises from the warming wax, followed by amber and a lingering sandalwood warmth. The '
+            'straight-sided honey-glass tumbler rests on a substantial base beside its arch-engraved '
+            'champagne lid. Two turns of fine silk suspend a burgundy wax seal above the numbered, '
+            'deckle-edged ivory label.'
+        ),
+        "tagline": 'The room holds the last light.',
+        "size": '220 g',
+        "burn_time": 'Approximately 50 hours',
+        "notes_top": 'Neroli',
+        "notes_heart": 'Amber',
+        "notes_base": 'Sandalwood',
+        "materials": (
+            'Scented wax, cotton wick, honey-amber glass, champagne-gold lid, silk and cotton-rag paper.'
+        ),
+        "ritual": (
+            'Lift the lid, unwind the silk and set the seal aside before lighting the wick as daylight fades.'
         ),
     },
     {
@@ -367,8 +403,22 @@ PRODUCTS = [
         "price": "380.00",
         "stock_quantity": 7,
         "description": (
-            'A reed diffuser of neroli, amber and sandalwood for a softly radiant interior.'
+            'Neroli brings a fresh floral note to the room, with amber and sandalwood unfolding beneath. '
+            'Dark rattan reeds rise from a honey-glass bottle with a heavy base and an arch-engraved '
+            'champagne collar. A burgundy wax seal hangs from fine champagne silk above the numbered '
+            'cotton-paper label.'
         ),
+        "tagline": 'A little warmth at the threshold.',
+        "size": '200 ml',
+        "burn_time": 'Approximately three months',
+        "notes_top": 'Neroli',
+        "notes_heart": 'Amber',
+        "notes_base": 'Sandalwood',
+        "materials": (
+            'Honey-amber glass, brushed champagne-gold collar, rattan reeds, champagne silk and '
+            'cotton-rag paper.'
+        ),
+        "ritual": 'Fan the reeds on a console where the afternoon light can pass through the glass.',
     },
     {
         "sku": 'MN-GH-O',
@@ -379,8 +429,14 @@ PRODUCTS = [
         "price": "360.00",
         "stock_quantity": 5,
         "description": (
-            'A champagne-toned jewellery dish for rings, keys and the small treasures of the day.'
+            'Carved from honey-toned calcite onyx, Soleil catches the light along its softly fluted rim. '
+            'Natural bands of cream and champagne cross the shallow bowl, giving each imagined piece its '
+            'own mineral pattern. A discreet Maison Noir signature follows the inner edge, leaving the '
+            'centre open for rings, cufflinks or a favourite bracelet.'
         ),
+        "tagline": 'A resting place for small treasures.',
+        "materials": 'Polished calcite onyx with a fluted rim and engraved signature.',
+        "ritual": 'Leave it beside a mirror and place the day’s jewellery inside as evening begins.',
     },
     {
         "sku": 'MN-MP-P',
@@ -993,6 +1049,7 @@ PRODUCTS = [
 # collection slug -> picture shown in the collection page hero
 COLLECTION_IMAGES = {
     'after-hours': 'collections/after-hours.jpg',
+    'golden-hour': 'collections/golden-hour.jpg',
     'midnight-in-paris': 'collections/midnight-in-paris.jpg',
     'paris-after-dark': 'collections/paris-after-dark.jpg',
     'soft-linen': 'collections/soft-linen.jpg',
@@ -1037,6 +1094,42 @@ PRODUCT_IMAGES = {
             "alt_text": (
                 'Nocturne Tray: low rectangular tray in honed dark smoked stone with a champagne '
                 'Maison Noir signature on its front edge'
+            ),
+        },
+    ],
+    'MN-GH-P': [
+        {
+            "file": 'products/golden-hour-eau-de-parfum.jpg',
+            "alt_text": (
+                'Golden Hour eau de parfum: bevelled glass flacon of golden liquid with a champagne-gold '
+                'cap and a burgundy wax seal'
+            ),
+        },
+    ],
+    'MN-GH-C': [
+        {
+            "file": 'products/golden-hour-scented-candle.jpg',
+            "alt_text": (
+                'Golden Hour scented candle: straight-sided honey-amber glass tumbler tied with silk, '
+                'its champagne lid leaning beside it'
+            ),
+        },
+    ],
+    'MN-GH-D': [
+        {
+            "file": 'products/golden-hour-reed-diffuser.jpg',
+            "alt_text": (
+                'Golden Hour reed diffuser: tapered honey-amber glass bottle with dark reeds '
+                'and a champagne-gold collar'
+            ),
+        },
+    ],
+    'MN-GH-O': [
+        {
+            "file": 'products/golden-hour-soleil-vide-poche.jpg',
+            "alt_text": (
+                'Soleil Vide-Poche: round honey-toned calcite onyx dish with a fluted rim and an '
+                'engraved Maison Noir signature'
             ),
         },
     ],

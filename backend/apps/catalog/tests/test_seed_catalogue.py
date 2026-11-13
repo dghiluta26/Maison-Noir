@@ -220,6 +220,20 @@ def test_seed_images_are_copied_and_linked(temporary_media):
     assert (temporary_media / "products" / "midnight-in-paris-eau-de-parfum.jpg").is_file()
 
 
+def test_every_seeded_product_has_a_primary_image():
+    """Project spec 2.1: every product has an image, loaded through the seed script."""
+    assert set(seed_data.PRODUCT_IMAGES) == {p["sku"] for p in seed_data.PRODUCTS}
+    run_seed()
+
+    without_image = [p.sku for p in Product.objects.all() if p.primary_image is None]
+    assert without_image == []
+
+    golden = Collection.objects.get(slug="golden-hour")
+    assert golden.tagline == "La lumière sur la Seine"
+    assert golden.image.name == "collections/golden-hour.jpg"
+    assert Product.objects.get(sku="MN-GH-O").materials.startswith("Polished calcite onyx")
+
+
 def test_seed_images_are_not_duplicated_on_rerun():
     run_seed()
     run_seed()
