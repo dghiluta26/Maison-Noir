@@ -1132,6 +1132,15 @@ PRODUCT_IMAGES = {
             ),
         },
     ],
+    'MN-CC-O': [
+        {
+            "file": 'products/cafe-creme-le-plateau-cafe.jpg',
+            "alt_text": (
+                'Le Plateau Café: oval ceramic tray in a deep espresso glaze with a champagne-gold '
+                'Maison Noir signature on its front edge'
+            ),
+        },
+    ],
     'MN-CC-G': [
         {
             "file": 'products/cafe-creme-edition-gift-set.jpg',

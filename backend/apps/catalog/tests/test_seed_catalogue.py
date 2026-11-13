@@ -190,6 +190,7 @@ def test_seed_editorial_texts():
     tray = Product.objects.get(sku="MN-CC-O")
     assert tray.materials.startswith("Glazed espresso ceramic")
     assert tray.notes_top == ""  # unscented object
+    assert tray.primary_image.image.name == "products/cafe-creme-le-plateau-cafe.jpg"
 
 
 def test_seed_images_are_copied_and_linked(temporary_media):
