@@ -15,14 +15,14 @@ from rest_framework import filters, viewsets
 from apps.users.permissions import IsAdminRole
 
 from .models import Product
-from .pagination import CataloguePagination
+from .pagination import AdminPagination
 from .serializers import AdminProductSerializer
 
 
 class AdminProductViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = AdminProductSerializer
     permission_classes = [IsAdminRole]  # uses the default JWT authentication
-    pagination_class = CataloguePagination
+    pagination_class = AdminPagination
     lookup_field = "slug"
     filter_backends = [filters.SearchFilter]
     search_fields = ["name", "description", "sku", "collection__name", "category__name"]

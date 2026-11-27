@@ -2,10 +2,17 @@ from decimal import Decimal
 from io import StringIO
 
 import pytest
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management import call_command
 
 from apps.catalog import seed_data
-from apps.catalog.models import Category, Collection, Product
+from apps.catalog.models import Category, Collection, Product, ProductImage
+
+# Smallest valid GIF, so ImageField accepts the upload without real files.
+TINY_GIF = (
+    b"GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\xff\xff\xff!\xf9\x04\x01\x00"
+    b"\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
+)
 
 pytestmark = pytest.mark.django_db
 
@@ -37,7 +44,7 @@ def test_seed_creates_full_catalogue():
     assert Collection.objects.count() == 13
     assert Product.objects.count() == 32
     assert Product.objects.active().count() == 32
-    assert "Products: 32 created, 0 updated" in output
+    assert "Products: 32 created, 0 kept" in output
 
 
 def test_seed_is_repeatable_without_duplicates():
@@ -47,18 +54,97 @@ def test_seed_is_repeatable_without_duplicates():
     assert Category.objects.count() == 5
     assert Collection.objects.count() == 13
     assert Product.objects.count() == 32
-    assert "Products: 0 created, 32 updated" in output
+    assert "Products: 0 created, 32 kept" in output
 
 
-def test_seed_restores_seed_values_on_rerun():
+def test_safe_seed_keeps_live_edits():
+    """Normal start-up seeding must never overwrite what an administrator changed."""
     run_seed()
-    Product.objects.filter(sku="MN-AH-P").update(price=Decimal("1.00"), stock_quantity=0)
+    Product.objects.filter(sku="MN-AH-P").update(
+        price=Decimal("1.00"), stock_quantity=0, is_active=False, name="Renamed by admin"
+    )
+    Category.objects.filter(slug="fine-fragrances").update(description="Edited by admin")
 
     run_seed()
 
     product = Product.objects.get(sku="MN-AH-P")
+    assert product.price == Decimal("1.00")
+    assert product.stock_quantity == 0
+    assert product.is_active is False
+    assert product.name == "Renamed by admin"
+    assert Category.objects.get(slug="fine-fragrances").description == "Edited by admin"
+
+
+def test_safe_seed_fills_only_empty_fields():
+    run_seed()
+    Product.objects.filter(sku="MN-NP-C").update(tagline="", size="")
+
+    run_seed()
+
+    candle = Product.objects.get(sku="MN-NP-C")
+    assert candle.tagline == "A rose left by the window."
+    assert candle.size == "220 g"
+
+
+def test_safe_seed_keeps_admin_chosen_images():
+    run_seed()
+    product = Product.objects.get(sku="MN-AH-P")
+    product.images.all().delete()
+    admin_image = ProductImage.objects.create(
+        product=product,
+        image=SimpleUploadedFile("admin-photo.gif", TINY_GIF, "image/gif"),
+        is_primary=True,
+    )
+
+    run_seed()
+
+    assert list(product.images.all()) == [admin_image]
+
+
+def test_safe_seed_restores_missing_seed_files(temporary_media):
+    run_seed()
+    seed_file = temporary_media / "products" / "after-hours-eau-de-parfum.jpg"
+    seed_file.unlink()
+
+    run_seed()
+
+    assert seed_file.is_file()
+
+
+def test_reset_restores_seed_values():
+    run_seed()
+    Product.objects.filter(sku="MN-AH-P").update(price=Decimal("1.00"), stock_quantity=0, is_active=False)
+
+    out = StringIO()
+    call_command("seed_catalogue", reset=True, interactive=False, stdout=out)
+
+    product = Product.objects.get(sku="MN-AH-P")
     assert product.price == Decimal("590.00")
     assert product.stock_quantity == 8
+    assert product.is_active is True
+    assert "Products: 0 created, 32 reset" in out.getvalue()
+
+
+def test_reset_asks_for_confirmation_and_can_be_cancelled(monkeypatch):
+    run_seed()
+    Product.objects.filter(sku="MN-AH-P").update(price=Decimal("1.00"))
+    monkeypatch.setattr("builtins.input", lambda prompt: "no")
+
+    out = StringIO()
+    call_command("seed_catalogue", reset=True, stdout=out)
+
+    assert "Reset cancelled" in out.getvalue()
+    assert Product.objects.get(sku="MN-AH-P").price == Decimal("1.00")
+
+
+def test_reset_runs_after_typing_reset(monkeypatch):
+    run_seed()
+    Product.objects.filter(sku="MN-AH-P").update(price=Decimal("1.00"))
+    monkeypatch.setattr("builtins.input", lambda prompt: "reset")
+
+    call_command("seed_catalogue", reset=True, stdout=StringIO())
+
+    assert Product.objects.get(sku="MN-AH-P").price == Decimal("590.00")
 
 
 def test_seeded_product_matches_catalogue():
