@@ -34,7 +34,7 @@ Responses are JSON with `snake_case` field names, matching
 | `category` | `?category=limited-gift-sets` | Only products in this category (category slug). |
 | `collection` | `?collection=cafe-creme` | Only products in this collection (collection slug). |
 | `page` | `?page=2` | Page number (starts at 1). |
-| `page_size` | `?page_size=12` | Products per page. Default **48** (the whole P2 catalogue fits on page 1), maximum 100. |
+| `page_size` | `?page_size=12` | Products per page. Default and maximum **24** (spec A1): a larger value still returns 24. The 32-product catalogue spans 2 pages (24 + 8); follow `next` to read them all. |
 
 Parameters can be combined, e.g. `?category=scented-candles&search=amber`.
 An unknown `category`/`collection` slug or a search without matches returns
@@ -45,7 +45,7 @@ An unknown `category`/`collection` slug or a search without matches returns
 ```json
 {
   "count": 32,
-  "next": null,
+  "next": "http://localhost:8000/api/products/?page=2",
   "previous": null,
   "results": [
     {
@@ -64,7 +64,7 @@ An unknown `category`/`collection` slug or a search without matches returns
 }
 ```
 
-`next` / `previous` are full URLs of the neighbouring pages, or `null`.
+`next` / `previous` are full URLs of the neighbouring pages, or `null`. With the seed catalogue page 1 has `next` = `…/api/products/?page=2`.
 
 ---
 

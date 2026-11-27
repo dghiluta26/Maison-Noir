@@ -211,7 +211,9 @@ Load the catalogue (5 categories, 13 collections, 32 products):
 python manage.py seed_catalogue
 ```
 
-The command is safe to run repeatedly: it updates existing rows (matched by slug / SKU) instead of creating duplicates, and resets them to the seed values. The seed data lives in `backend/apps/catalog/seed_data.py`.
+The command is safe to run repeatedly: it only creates what is missing (matched by slug / SKU) and fills empty fields, and it never overwrites prices, stock, the active flag, texts or images changed by an administrator. The seed data lives in `backend/apps/catalog/seed_data.py`.
+
+To restore the original seed values on a **disposable demo database only**, run `python manage.py seed_catalogue --reset` (it asks you to type `reset` to confirm; add `--no-input` to skip the question).
 
 Optionally, create an admin account for the Django admin at http://localhost:8000/admin/ (you will be asked for email, first name, last name and password):
 
