@@ -46,8 +46,27 @@ def test_product_list_returns_paginated_catalogue(api):
     body = response.json()
     assert set(body) == {"count", "next", "previous", "results"}
     assert body["count"] == 32
-    assert len(body["results"]) == 32
-    assert body["next"] is None
+    assert len(body["results"]) == 24  # spec A1: at most 24 products per page
+    assert body["next"] is not None
+    assert body["previous"] is None
+
+
+def test_second_page_holds_the_remaining_products(api):
+    first = api.get("/api/products/").json()
+    second = api.get("/api/products/?page=2").json()
+
+    assert len(second["results"]) == 8
+    assert second["next"] is None
+    assert second["previous"] is not None
+    skus = [p["sku"] for p in first["results"] + second["results"]]
+    assert len(skus) == len(set(skus)) == 32  # no product missing or repeated
+
+
+@pytest.mark.parametrize("page_size", [25, 48, 100])
+def test_page_size_can_never_exceed_24(api, page_size):
+    body = api.get(f"/api/products/?page_size={page_size}").json()
+
+    assert len(body["results"]) == 24
 
 
 def test_product_list_item_shape(api):
