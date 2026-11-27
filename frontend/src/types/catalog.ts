@@ -5,7 +5,7 @@
  * (snake_case field names, exactly as DRF serializes them), so the
  * service layer can return API data without renaming fields.
  *
- * Draft contract — to be confirmed with the backend in tasks 2.2 / 2.4.
+ * Contract: docs/api/catalogue.md.
  */
 
 export interface Category {
@@ -18,6 +18,33 @@ export interface Collection {
   id: number
   name: string
   slug: string
+}
+
+/** Category as listed by GET /api/categories/. */
+export interface CategoryListItem extends Category {
+  description: string
+}
+
+/** Collection as listed by GET /api/collections/. Empty texts are "". */
+export interface CollectionListItem extends Collection {
+  description: string
+  tagline: string
+  story: string
+  /** Absolute URL of the collection picture, or null. */
+  image: string | null
+  launch_year: number | null
+}
+
+/** Query parameters accepted by GET /api/products/. Empty values are not sent. */
+export interface ProductQuery {
+  search?: string
+  /** Category slug. */
+  category?: string
+  /** Collection slug. */
+  collection?: string
+  /** 1-based page number. */
+  page?: number
+  page_size?: number
 }
 
 export interface ProductImage {
@@ -45,9 +72,22 @@ export interface ProductSummary {
   stock_quantity: number
 }
 
-/** Full product as shown on its detail page (GET /api/products/{slug}/). */
+/**
+ * Full product as shown on its detail page (GET /api/products/{slug}/).
+ * The optional details are "" when they do not apply to the product.
+ */
 export interface ProductDetail extends ProductSummary {
   description: string
+  tagline: string
+  size: string
+  burn_time: string
+  includes: string
+  notes_top: string
+  notes_heart: string
+  notes_base: string
+  materials: string
+  edition: string
+  ritual: string
   images: ProductImage[]
 }
 
