@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router'
 import { ProductImageFrame } from '../components/catalog/ProductImageFrame'
 import { StatusMessage } from '../components/ui/StatusMessage'
@@ -73,7 +73,11 @@ function ProductDetailView({ product }: { product: ProductDetail }) {
             </Link>
           </li>
           <li aria-hidden="true">/</li>
-          <li>{product.category.name}</li>
+          <li>
+            <Link to={catalogueLink('category', product.category.slug)} className="hover:text-burgundy">
+              {product.category.name}
+            </Link>
+          </li>
           <li aria-hidden="true">/</li>
           <li aria-current="page" className="text-espresso">
             {product.name}
@@ -117,16 +121,35 @@ function ProductDetailView({ product }: { product: ProductDetail }) {
             {product.collection && <> · {product.collection.name}</>}
           </p>
           <h1 className="mt-3 text-4xl leading-tight sm:text-5xl">{product.name}</h1>
-          <p className="mt-5 text-xl font-semibold">{formatPrice(product.price)}</p>
+          {product.tagline && (
+            <p className="mt-3 font-serif text-xl text-espresso-soft italic">{product.tagline}</p>
+          )}
+          <p className="mt-5 text-xl font-semibold">
+            {formatPrice(product.price)}
+            {product.size && <span className="ml-3 text-sm font-normal text-espresso-soft">{product.size}</span>}
+          </p>
 
           <StockStatus quantity={product.stock_quantity} />
 
-          <div className="mt-8 border-t border-line pt-8">
-            <h2 className="sr-only">Description</h2>
-            <p className="leading-relaxed whitespace-pre-line text-espresso-soft">
-              {product.description}
-            </p>
-          </div>
+          {product.description && (
+            <div className="mt-8 border-t border-line pt-8">
+              <h2 className="sr-only">Description</h2>
+              <p className="leading-relaxed whitespace-pre-line text-espresso-soft">
+                {product.description}
+              </p>
+            </div>
+          )}
+
+          <ScentNotes product={product} />
+
+          {product.ritual && (
+            <div className="mt-8">
+              <h2 className="eyebrow">The ritual</h2>
+              <p className="mt-3 text-sm leading-relaxed whitespace-pre-line text-espresso-soft">
+                {product.ritual}
+              </p>
+            </div>
+          )}
 
           {/* The shopping bag is implemented after P2; the button is shown disabled until then. */}
           <div className="mt-10">
@@ -136,21 +159,87 @@ function ProductDetailView({ product }: { product: ProductDetail }) {
             <p className="mt-3 text-xs text-espresso-soft">Online ordering opens soon.</p>
           </div>
 
-          <dl className="mt-10 grid grid-cols-[auto_1fr] gap-x-8 gap-y-3 border-t border-line pt-8 text-sm">
-            <dt className="eyebrow self-center">Category</dt>
-            <dd>{product.category.name}</dd>
-            {product.collection && (
-              <>
-                <dt className="eyebrow self-center">Collection</dt>
-                <dd>{product.collection.name}</dd>
-              </>
-            )}
-            <dt className="eyebrow self-center">Reference</dt>
-            <dd>{product.sku}</dd>
-          </dl>
+          <ProductFacts product={product} />
         </section>
       </div>
     </div>
+  )
+}
+
+/** Shop page filtered by one category or collection. */
+function catalogueLink(filter: 'category' | 'collection', slug: string): string {
+  return `/products?${new URLSearchParams({ [filter]: slug })}`
+}
+
+/** Top, heart and base notes; hidden when the product has none (e.g. design objects). */
+function ScentNotes({ product }: { product: ProductDetail }) {
+  const notes = [
+    { label: 'Top', value: product.notes_top },
+    { label: 'Heart', value: product.notes_heart },
+    { label: 'Base', value: product.notes_base },
+  ].filter((note) => note.value)
+
+  if (notes.length === 0) return null
+
+  return (
+    <div className="mt-8">
+      <h2 className="eyebrow">Olfactory notes</h2>
+      <dl className="mt-3 divide-y divide-line border-y border-line text-sm">
+        {notes.map(({ label, value }) => (
+          <div key={label} className="grid grid-cols-[5rem_1fr] gap-4 py-3">
+            <dt className="font-semibold">{label}</dt>
+            <dd className="text-espresso-soft">{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  )
+}
+
+/** Reference table at the bottom of the product page; empty details are skipped. */
+function ProductFacts({ product }: { product: ProductDetail }) {
+  const linkClass = 'underline-offset-4 hover:text-burgundy hover:underline'
+  const facts: { label: string; value: ReactNode }[] = [
+    {
+      label: 'Category',
+      value: (
+        <Link to={catalogueLink('category', product.category.slug)} className={linkClass}>
+          {product.category.name}
+        </Link>
+      ),
+    },
+  ]
+  if (product.collection) {
+    facts.push({
+      label: 'Collection',
+      value: (
+        <Link to={catalogueLink('collection', product.collection.slug)} className={linkClass}>
+          {product.collection.name}
+        </Link>
+      ),
+    })
+  }
+  const optional: [string, string][] = [
+    ['Size', product.size],
+    ['Duration', product.burn_time],
+    ['Includes', product.includes],
+    ['Materials', product.materials],
+    ['Edition', product.edition],
+  ]
+  for (const [label, value] of optional) {
+    if (value) facts.push({ label, value: <span className="whitespace-pre-line">{value}</span> })
+  }
+  facts.push({ label: 'Reference', value: product.sku })
+
+  return (
+    <dl className="mt-10 grid grid-cols-[auto_1fr] gap-x-8 gap-y-3 border-t border-line pt-8 text-sm">
+      {facts.map(({ label, value }) => (
+        <Fragment key={label}>
+          <dt className="eyebrow pt-0.5">{label}</dt>
+          <dd>{value}</dd>
+        </Fragment>
+      ))}
+    </dl>
   )
 }
 

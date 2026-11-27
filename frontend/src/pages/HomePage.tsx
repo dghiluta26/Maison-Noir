@@ -4,7 +4,7 @@ import heroImage from '../assets/home-parisian-living-room.jpg'
 import { ProductCard } from '../components/catalog/ProductCard'
 import { ProductGrid, ProductGridSkeleton } from '../components/catalog/ProductGrid'
 import { useAsync } from '../hooks/useAsync'
-import { getProducts } from '../services/catalogService'
+import { getAllProducts } from '../services/catalogService'
 import { isLimitedEdition, pickSignatureSelection } from '../utils/catalog'
 
 const SIGNATURE_COUNT = 4
@@ -25,8 +25,9 @@ function scrollToCollection(event: MouseEvent<HTMLAnchorElement>) {
  * and Our Philosophy (editorial content).
  */
 export function HomePage() {
-  const products = useAsync(getProducts, [])
-  const all = products.status === 'success' ? products.data.results : []
+  // Every page of the catalogue, so the selections below see all products.
+  const products = useAsync(() => getAllProducts(), [])
+  const all = products.status === 'success' ? products.data : []
   const limitedEditions = all.filter(isLimitedEdition)
 
   return (

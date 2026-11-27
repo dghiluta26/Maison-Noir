@@ -9,12 +9,12 @@
 import { MOCK_FAVOURITE_SKUS, MOCK_ORDERS } from '../mocks/account'
 import type { AccountActivity, Order } from '../types/account'
 import type { ProductSummary } from '../types/catalog'
-import { getProducts } from './catalogService'
+import { getAllProducts } from './catalogService'
 
 export async function getAccountActivity(): Promise<AccountActivity> {
-  // One catalogue request feeds both lists (the default page holds every product).
-  const { results } = await getProducts()
-  const bySku = new Map(results.map((product) => [product.sku, product]))
+  // The whole catalogue (all pages) feeds both lists.
+  const products = await getAllProducts()
+  const bySku = new Map(products.map((product) => [product.sku, product]))
 
   const favourites = MOCK_FAVOURITE_SKUS.flatMap((sku) => bySku.get(sku) ?? [])
 
